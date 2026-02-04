@@ -97,6 +97,7 @@
   },
   "description": "Get the most out of Life Note",
   "background": {
-    "decoration": "gradient"
+    "decoration": "gradient",
+    "image": "/images/hero.png"
   }
 }
