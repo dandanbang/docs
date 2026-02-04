@@ -30,20 +30,20 @@
               "essentials/meet-your-mentors",
               "essentials/weekly-letter-inner-portrait",
               "essentials/memory-orb",
-              "essentials/wisdom-collection",
-              "advanced/inner-wisdom"
+              "essentials/wisdom-collection"
             ]
           },
           {
             "group": "Life Note Advanced",
             "icon": "rocket",
             "pages": [
+              "advanced/inner-wisdom",
               "advanced/your-inner-weather",
               "advanced/goals",
               "advanced/aligned-actions",
-              "advanced/yearly-review",
               "advanced/guidance-modes",
-              "advanced/reminders"
+              "advanced/reminders",
+              "advanced/yearly-reflection"
             ]
           }
         ]
