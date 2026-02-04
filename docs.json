@@ -1,42 +1,39 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Life Note Guide",
+  "name": "Life Note Guides",
   "colors": {
     "primary": "#3d1b89",
-    "light": "#3d1b89",
+    "light": "#9C93D6",
     "dark": "#9C93D6"
   },
   "favicon": "/images/favicon.png",
   "navigation": {
     "tabs": [
       {
-        "tab": "Life Note Guides",
+        "tab": "Guides",
         "groups": [
           {
             "group": "Start Here",
             "icon": "arrow-down-to-line",
             "expanded": true,
             "pages": [
-              "life-note-baisc"
+              "start-here/welcome-to-life-note"
             ]
           },
           {
             "group": "Life Note Essential",
             "icon": "book-open",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/untitled-page",
+              "essentials/journaling-with-great-minds",
+              "deep-chat",
+              "essentials/weekly-letter-inner-portrait",
               "essentials/wisdom-collection",
-              "essentials/memory-orb"
-            ]
-          },
-          {
-            "group": "Account",
-            "icon": "box-heart",
-            "pages": [
-              "gift-card"
+              "essentials/memory-orb",
+              "essentials/aligned-actions",
+              "essentials/goals",
+              "essentials/your-inner-weather",
+              "essentials/yearly-review"
             ]
           }
         ]
@@ -44,8 +41,8 @@
     ]
   },
   "logo": {
-    "light": "/images/logo-dark.png",
-    "dark": "/images/logo-light.png",
+    "light": "/images/logo-light.png",
+    "dark": "/images/logo-dark.png",
     "href": "https://www.mylifenote.ai"
   },
   "navbar": {
