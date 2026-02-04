@@ -1,86 +1,87 @@
 ---
 title: "Deep Chat"
-description: "The navigation field in docs.json defines the pages that go in the navigation menu"
+description: "Real growth comes from dialogue, not monologue."
 icon: "thought-bubble"
 ---
 
-The navigation menu is the list of links on every website.
+## The conversation continues
 
-You will likely update `docs.json` every time you add a new page. Pages do not show up automatically.
+A mentor's first response is just the beginning.
 
-## Navigation syntax
+Real wisdom emerges through dialogue—through questioning, challenging, exploring. Deep Chat lets you continue the conversation with your mentor. Ask follow-up questions. Push back on their perspective. Go deeper into ideas that resonate.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+This is how the great thinkers learned from each other. Now it's how you learn from them.
 
-<CodeGroup>
+<Info>
+**Where to find it:**
+- After submitting a journal entry → Tap **"Continue Chat"** on the mentor's response
+- From Home → Tap any mentor in the **"Chat Topics"** section
+</Info>
 
-```json Regular Navigation
-"navigation": {
-  "tabs": [
-    {
-      "tab": "Docs",
-      "groups": [
-        {
-          "group": "Getting Started",
-          "pages": ["quickstart"]
-        }
-      ]
-    }
-  ]
-}
-```
+---
 
+## Continuing from your journal
 
-```json Nested Navigation
-"navigation": {
-  "tabs": [
-    {
-      "tab": "Docs",
-      "groups": [
-        {
-          "group": "Getting Started",
-          "pages": [
-            "quickstart",
-            {
-              "group": "Nested Reference Pages",
-              "pages": ["nested-reference-page"]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
+When a mentor responds to your journal entry, their words might spark new questions.
 
-</CodeGroup>
+*"What do you mean by that?"*
+*"How would I actually apply this?"*
+*"I'm not sure I agree..."*
 
-## Folders
+Tap **"Continue Chat"** and keep going. Your mentor remembers your original entry. They remember what they said. The conversation builds on itself—each exchange adding depth to your understanding.
 
-Simply put your MDX files in folders and update the paths in `docs.json`.
+---
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
+## Starting fresh conversations
 
-<Warning>
-  You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-</Warning>
+Sometimes you want to skip the journal and go straight to dialogue.
 
-```json Navigation With Folder
-"navigation": {
-  "tabs": [
-    {
-      "tab": "Docs",
-      "groups": [
-        {
-          "group": "Group Name",
-          "pages": ["your-folder/your-page"]
-        }
-      ]
-    }
-  ]
-}
-```
+On your Home screen, you'll see mentors available for conversation. Tap one and start talking. Maybe you want to discuss a book with Leonardo. Debate ethics with Aristotle. Process a difficult emotion with Maya Angelou.
 
-## Hidden pages
+No journal entry required. Just curiosity.
 
-MDX files not included in `docs.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+---
+
+## Speaking your mind
+
+Typing isn't always the right tool. Sometimes you need to think out loud.
+
+Tap the **microphone icon** in Deep Chat to send voice messages. Your mentor receives your words and responds in kind—through text you can read, save, and return to.
+
+Voice opens different doors. Use it when you need it.
+
+---
+
+## Capturing wisdom
+
+In the flow of conversation, insights appear. Don't let them slip away.
+
+When your mentor says something that strikes you:
+
+1. **Select the text** (long-press on mobile, click-drag on desktop)
+2. Tap **"Save to Wisdom"**
+3. The insight joins your [Wisdom Collection](/essentials/wisdom-collection)
+
+Over time, you'll build a personal library of the ideas that shaped you—searchable, shareable, yours forever.
+
+---
+
+## Context that matters
+
+Every conversation carries history.
+
+When you return to a previous chat, your mentor knows what you discussed. They reference earlier points. They notice patterns in your thinking. They remember your goals, your struggles, your victories.
+
+This isn't a reset every time. It's an ongoing relationship with wisdom.
+
+---
+
+## A different way to learn
+
+School taught us that learning happens through lectures. Someone talks at you. You absorb. You're tested.
+
+But the greatest education has always been dialogical. Socrates didn't lecture—he questioned. The Talmud isn't statements—it's arguments. Einstein developed relativity through letters with friends.
+
+Deep Chat returns to this ancient truth: we learn best through conversation.
+
+Your mentor isn't just delivering wisdom. They're discovering it with you.
