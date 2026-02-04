@@ -3,9 +3,9 @@
   "theme": "maple",
   "name": "Life Note Guide",
   "colors": {
-    "primary": "#3d1b89",
+    "primary": "#e5d1a9",
     "light": "#3d1b89",
-    "dark": "#e5d1a9"
+    "dark": "#3d1b89"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -28,7 +28,8 @@
               "essentials/settings",
               "essentials/navigation",
               "essentials/untitled-page",
-              "essentials/wisdom-collection"
+              "essentials/wisdom-collection",
+              "essentials/memory-orb"
             ]
           },
           {
@@ -66,7 +67,8 @@
   },
   "logo": {
     "light": "/images/TransparentLifeNoteLogo.png",
-    "dark": "/images/TransparentLifeNoteLogo.png"
+    "dark": "/images/LifeNoteLogoTransparentWhite.png",
+    "href": "https://www.mylifenote.ai"
   },
   "navbar": {
     "links": [
