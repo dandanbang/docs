@@ -5,43 +5,38 @@
   "colors": {
     "primary": "#3d1b89",
     "light": "#3d1b89",
-    "dark": "#3d1b89"
+    "dark": "#9C93D6"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/images/favicon.png",
   "navigation": {
-    "languages": [
+    "tabs": [
       {
-        "language": "en",
-        "tabs": [
+        "tab": "Life Note Guides",
+        "groups": [
           {
-            "tab": "Life Note Guides",
-            "groups": [
-              {
-                "group": "Start Here",
-                "icon": "arrow-down-to-line",
-                "expanded": true,
-                "pages": [
-                  "life-note-baisc"
-                ]
-              },
-              {
-                "group": "Life Note Essential",
-                "icon": "book-open",
-                "pages": [
-                  "essentials/settings",
-                  "essentials/navigation",
-                  "essentials/untitled-page",
-                  "essentials/wisdom-collection",
-                  "essentials/memory-orb"
-                ]
-              },
-              {
-                "group": "Account",
-                "icon": "box-heart",
-                "pages": [
-                  "gift-card"
-                ]
-              }
+            "group": "Start Here",
+            "icon": "arrow-down-to-line",
+            "expanded": true,
+            "pages": [
+              "life-note-baisc"
+            ]
+          },
+          {
+            "group": "Life Note Essential",
+            "icon": "book-open",
+            "pages": [
+              "essentials/settings",
+              "essentials/navigation",
+              "essentials/untitled-page",
+              "essentials/wisdom-collection",
+              "essentials/memory-orb"
+            ]
+          },
+          {
+            "group": "Account",
+            "icon": "box-heart",
+            "pages": [
+              "gift-card"
             ]
           }
         ]
@@ -49,8 +44,8 @@
     ]
   },
   "logo": {
-    "light": "/images/TransparentLifeNoteLogo.png",
-    "dark": "/images/LifeNoteLogoTransparentWhite.png",
+    "light": "/images/logo-dark.png",
+    "dark": "/images/logo-light.png",
     "href": "https://www.mylifenote.ai"
   },
   "navbar": {
