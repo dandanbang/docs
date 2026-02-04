@@ -27,13 +27,23 @@
             "pages": [
               "essentials/journaling-with-great-minds",
               "deep-chat",
+              "essentials/meet-your-mentors",
               "essentials/weekly-letter-inner-portrait",
               "essentials/wisdom-collection",
-              "essentials/memory-orb",
-              "essentials/aligned-actions",
-              "essentials/goals",
-              "essentials/your-inner-weather",
-              "essentials/yearly-review"
+              "essentials/memory-orb"
+            ]
+          },
+          {
+            "group": "Life Note Advanced",
+            "icon": "rocket",
+            "pages": [
+              "advanced/guidance-modes",
+              "advanced/reminders",
+              "advanced/inner-wisdom",
+              "advanced/your-inner-weather",
+              "advanced/aligned-actions",
+              "advanced/goals",
+              "advanced/yearly-review"
             ]
           }
         ]
@@ -51,12 +61,7 @@
         "label": "Support",
         "href": "mailto:daniel@mylifenote.ai"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    ]
   },
   "contextual": {
     "options": [
