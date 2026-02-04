@@ -1,28 +1,14 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "maple",
-  "name": "Life Note Library",
+  "name": "Life Note Guide",
   "colors": {
-    "primary": "#e5d1a9",
+    "primary": "#3d1b89",
     "light": "#3d1b89",
     "dark": "#e5d1a9"
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "icon": "book-open-cover",
-          "href": "https://mintlify.com/docs"
-        },
-        {
-          "anchor": "Blog",
-          "icon": "newspaper",
-          "href": "https://blog.mylifenote.ai/"
-        }
-      ]
-    },
     "tabs": [
       {
         "tab": "Life Note Guides",
@@ -80,14 +66,13 @@
   },
   "logo": {
     "light": "/images/TransparentLifeNoteLogo.png",
-    "dark": "/images/LifeNoteLogoTransparentWhite.png",
-    "href": "https://www.mylifenote.ai/"
+    "dark": "/images/TransparentLifeNoteLogo.png"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:daniel@mylifenote.ai"
       }
     ],
     "primary": {
@@ -122,6 +107,7 @@
     "default": "dark"
   },
   "fonts": {
-    "family": "Open Sans"
-  }
+    "family": "Poppins"
+  },
+  "description": "Get the most out of Life Note"
 }
