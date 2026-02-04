@@ -9,56 +9,39 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "Life Note Guides",
-        "groups": [
+        "language": "en",
+        "tabs": [
           {
-            "group": "Start Here",
-            "icon": "arrow-down-to-line",
-            "expanded": true,
-            "pages": [
-              "life-note-baisc"
-            ]
-          },
-          {
-            "group": "Life Note Essential",
-            "icon": "book-open",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/untitled-page",
-              "essentials/wisdom-collection",
-              "essentials/memory-orb"
-            ]
-          },
-          {
-            "group": "Account",
-            "icon": "box-heart",
-            "pages": [
-              "gift-card",
-              "essentials/code"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "hidden": true,
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+            "tab": "Life Note Guides",
+            "groups": [
+              {
+                "group": "Start Here",
+                "icon": "arrow-down-to-line",
+                "expanded": true,
+                "pages": [
+                  "life-note-baisc"
+                ]
+              },
+              {
+                "group": "Life Note Essential",
+                "icon": "book-open",
+                "pages": [
+                  "essentials/settings",
+                  "essentials/navigation",
+                  "essentials/untitled-page",
+                  "essentials/wisdom-collection",
+                  "essentials/memory-orb"
+                ]
+              },
+              {
+                "group": "Account",
+                "icon": "box-heart",
+                "pages": [
+                  "gift-card"
+                ]
+              }
             ]
           }
         ]
