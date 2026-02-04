@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "maple",
   "name": "Life Note Library",
   "colors": {
     "primary": "#e5d1a9",
     "light": "#3d1b89",
-    "dark": "#9C93D6"
+    "dark": "#e5d1a9"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -19,49 +19,45 @@
         {
           "anchor": "Blog",
           "icon": "newspaper",
-          "href": "https://mintlify.com/blog"
+          "href": "https://blog.mylifenote.ai/"
         }
       ]
     },
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Life Note Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Start Here",
+            "icon": "arrow-down-to-line",
+            "expanded": true,
             "pages": [
-              "index",
-              "quickstart"
+              "life-note-baisc"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Life Note Essential",
+            "icon": "book-open",
             "pages": [
               "essentials/settings",
-              "essentials/navigation"
+              "essentials/navigation",
+              "essentials/untitled-page",
+              "essentials/wisdom-collection"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Account",
+            "icon": "box-heart",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "gift-card",
+              "essentials/code"
             ]
           }
         ]
       },
       {
         "tab": "API reference",
+        "hidden": true,
         "groups": [
           {
             "group": "API documentation",
@@ -114,9 +110,12 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/lifenote_ai",
+      "linkedin": "https://www.linkedin.com/company/mylifenote",
+      "instagram": "https://www.instagram.com/lifenote.journal",
+      "discord": "https://discord.gg/JQ7HqyMQ9b",
+      "threads": "https://www.threads.net/@mylifenote.ai",
+      "website": "https://www.mylifenote.ai/"
     }
   },
   "appearance": {
