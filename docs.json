@@ -58,7 +58,7 @@
         ]
       },
       {
-        "language": "zh-Hant",
+        "language": "zh-TW",
         "tabs": [
           {
             "tab": "指南",
@@ -68,32 +68,32 @@
                 "icon": "arrow-down-to-line",
                 "expanded": true,
                 "pages": [
-                  "zh-Hant/start-here/welcome-to-life-note"
+                  "zh-TW/start-here/welcome-to-life-note"
                 ]
               },
               {
                 "group": "Life Note 基本功能",
                 "icon": "book-open",
                 "pages": [
-                  "zh-Hant/essentials/journaling-with-great-minds",
-                  "zh-Hant/essentials/deep-chat",
-                  "zh-Hant/essentials/meet-your-mentors",
-                  "zh-Hant/essentials/weekly-letter-inner-portrait",
-                  "zh-Hant/essentials/memory-orb",
-                  "zh-Hant/essentials/wisdom-collection"
+                  "zh-TW/essentials/journaling-with-great-minds",
+                  "zh-TW/essentials/deep-chat",
+                  "zh-TW/essentials/meet-your-mentors",
+                  "zh-TW/essentials/weekly-letter-inner-portrait",
+                  "zh-TW/essentials/memory-orb",
+                  "zh-TW/essentials/wisdom-collection"
                 ]
               },
               {
                 "group": "Life Note 進階功能",
                 "icon": "rocket",
                 "pages": [
-                  "zh-Hant/advanced/inner-wisdom",
-                  "zh-Hant/advanced/your-inner-weather",
-                  "zh-Hant/advanced/goals",
-                  "zh-Hant/advanced/aligned-actions",
-                  "zh-Hant/advanced/guidance-modes",
-                  "zh-Hant/advanced/reminders",
-                  "zh-Hant/advanced/yearly-reflection"
+                  "zh-TW/advanced/inner-wisdom",
+                  "zh-TW/advanced/your-inner-weather",
+                  "zh-TW/advanced/goals",
+                  "zh-TW/advanced/aligned-actions",
+                  "zh-TW/advanced/guidance-modes",
+                  "zh-TW/advanced/reminders",
+                  "zh-TW/advanced/yearly-reflection"
                 ]
               }
             ]
