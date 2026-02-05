@@ -1,0 +1,4 @@
+/* Override zh-Hant flag from CN (China) to TW (Taiwan) */
+img[alt="CN"][src*="flags/CN.svg"] {
+  content: url("https://d3gk2c5xim1je2.cloudfront.net/flags/TW.svg");
+}
