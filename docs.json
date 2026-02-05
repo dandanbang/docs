@@ -2,6 +2,10 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Life Note Guides",
+  "metadata": {                                       
+    "og:site_name": "Life Note Guides",
+    "canonical": "https://guide.mylifenote.ai"
+  },  
   "colors": {
     "primary": "#3d1b89",
     "light": "#9C93D6",
