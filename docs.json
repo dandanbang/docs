@@ -72,7 +72,7 @@
                 ]
               },
               {
-                "group": "Life Note 基本功能",
+                "group": "Life Note 基礎",
                 "icon": "book-open",
                 "pages": [
                   "zh-Hant/essentials/journaling-with-great-minds",
@@ -84,7 +84,7 @@
                 ]
               },
               {
-                "group": "Life Note 進階功能",
+                "group": "更深入地使用 Life Note",
                 "icon": "rocket",
                 "pages": [
                   "zh-Hant/advanced/inner-wisdom",
