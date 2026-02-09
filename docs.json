@@ -2,10 +2,26 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Life Note Guides",
-  "metadata": {                                       
+  "metadata": {
     "og:site_name": "Life Note Guides",
-    "canonical": "https://guide.mylifenote.ai"
-  },  
+    "og:image": "https://guide.mylifenote.ai/images/hero.png"
+  },
+  "redirects": [
+    { "source": "/start-here/welcome-to-life-note", "destination": "/en/start-here/welcome-to-life-note" },
+    { "source": "/essentials/journaling-with-great-minds", "destination": "/en/essentials/journaling-with-great-minds" },
+    { "source": "/essentials/deep-chat", "destination": "/en/essentials/deep-chat" },
+    { "source": "/essentials/meet-your-mentors", "destination": "/en/essentials/meet-your-mentors" },
+    { "source": "/essentials/weekly-letter-inner-portrait", "destination": "/en/essentials/weekly-letter-inner-portrait" },
+    { "source": "/essentials/memory-orb", "destination": "/en/essentials/memory-orb" },
+    { "source": "/essentials/wisdom-collection", "destination": "/en/essentials/wisdom-collection" },
+    { "source": "/advanced/inner-wisdom", "destination": "/en/advanced/inner-wisdom" },
+    { "source": "/advanced/your-inner-weather", "destination": "/en/advanced/your-inner-weather" },
+    { "source": "/advanced/aligned-actions", "destination": "/en/advanced/aligned-actions" },
+    { "source": "/advanced/goals", "destination": "/en/advanced/goals" },
+    { "source": "/advanced/guidance-modes", "destination": "/en/advanced/guidance-modes" },
+    { "source": "/advanced/reminders", "destination": "/en/advanced/reminders" },
+    { "source": "/advanced/yearly-reflection", "destination": "/en/advanced/yearly-reflection" }
+  ],
   "colors": {
     "primary": "#3d1b89",
     "light": "#9C93D6",
