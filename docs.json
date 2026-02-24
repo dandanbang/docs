@@ -35,7 +35,7 @@
         "tabs": [
           {
             "tab": "Guides",
-            "groups": [
+            "pages": [
               {
                 "group": "Start Here",
                 "icon": "arrow-down-to-line",
@@ -68,7 +68,8 @@
                   "en/advanced/reminders",
                   "en/advanced/yearly-reflection"
                 ]
-              }
+              },
+              "faq"
             ]
           }
         ]
@@ -78,7 +79,7 @@
         "tabs": [
           {
             "tab": "指南",
-            "groups": [
+            "pages": [
               {
                 "group": "從這裡開始",
                 "icon": "arrow-down-to-line",
@@ -111,7 +112,8 @@
                   "zh-Hant/advanced/reminders",
                   "zh-Hant/advanced/yearly-reflection"
                 ]
-              }
+              },
+              "file"
             ]
           }
         ]
