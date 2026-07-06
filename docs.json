@@ -20,7 +20,8 @@
     { "source": "/advanced/goals", "destination": "/en/advanced/goals" },
     { "source": "/advanced/guidance-modes", "destination": "/en/advanced/guidance-modes" },
     { "source": "/advanced/reminders", "destination": "/en/advanced/reminders" },
-    { "source": "/advanced/yearly-reflection", "destination": "/en/advanced/yearly-reflection" }
+    { "source": "/advanced/yearly-reflection", "destination": "/en/advanced/yearly-reflection" },
+    { "source": "/developers/lifenote-cli", "destination": "/en/developers/lifenote-cli" }
   ],
   "colors": {
     "primary": "#3d1b89",
@@ -69,6 +70,13 @@
                   "en/advanced/yearly-reflection"
                 ]
               },
+              {
+                "group": "For Developers",
+                "icon": "terminal",
+                "pages": [
+                  "en/developers/lifenote-cli"
+                ]
+              },
               "faq"
             ]
           }
@@ -111,6 +119,13 @@
                   "zh-Hant/advanced/guidance-modes",
                   "zh-Hant/advanced/reminders",
                   "zh-Hant/advanced/yearly-reflection"
+                ]
+              },
+              {
+                "group": "開發者專區",
+                "icon": "terminal",
+                "pages": [
+                  "zh-Hant/developers/lifenote-cli"
                 ]
               },
               "file"
