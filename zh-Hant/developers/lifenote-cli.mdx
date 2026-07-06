@@ -1,83 +1,118 @@
 ---
-title: "Life Note CLI 命令列工具"
-description: "把你的私人日記帶進你的 AI 工具 — Claude Code、Cursor、Codex、Claude Desktop — 作為一層唯讀的記憶。"
-icon: "terminal"
+title: "將 Life Note 連接到你的 AI"
+description: "把你的私人日記帶進你已經在用的 AI — Claude、ChatGPT、Claude Code、Cursor — 作為一層唯讀的記憶。"
+icon: "plug"
 ---
 
-日記是你最誠實思考的地方。Life Note CLI 讓你日常使用的 AI 工具，能夠在你需要時，私密地取用這些思考。
+你的日記，是你思考得最誠實的地方。把它連接到你已經在用的 AI — 不論是在聊天應用程式裡，還是在你的終端機中 — 讓它能夠汲取你真實的省思、智慧與目標。唯讀、私密，而且只在你開口時才會使用。
 
-只要安裝一個小小的命令列工具、登入一次，任何支援 MCP 的 AI 代理就能讀取你的日記、收藏的智慧、實踐與目標，給你根據「你自己的人生」而生的答案，而不是千篇一律的建議。
+## 兩種連接方式
 
-<Info>
-  **這是為使用 AI 程式代理或桌面助手的人準備的**（Claude Code、Cursor、Codex、Claude Desktop 等）。如果你只在 App 裡使用 Life Note，就用不到這個工具。
-</Info>
+<CardGroup cols={2}>
+  <Card title="在聊天應用程式中 — 免安裝" icon="comments">
+    將 Life Note 加入 **Claude** 或 **ChatGPT**，登入一次即可。適合大多數人。
+  </Card>
+  <Card title="在你的終端機或程式開發代理中" icon="terminal">
+    `lifenote` 命令列工具，適用於 Claude Code、Cursor 與 Codex。最適合開發者。
+  </Card>
+</CardGroup>
 
-## 你可以用它來做什麼
+## 在 Claude 或 ChatGPT 中連接
 
-- **讓 AI 代理談你自己的人生。** _「我最近都在寫些什麼？」_ — 它會根據你真實的日記回答。
-- **看見跨越數月的模式。** _「幫我整理我今年關於工作的日記主題。」_
-- **把收藏的智慧帶進你的工作。** 你從導師那裡保存下來的段落，在你書寫的任何地方都能取用。
-- **讓每段對話都以你的目標為根。** 你的人生目標、年度目標、實踐與探索，都成為 AI 代理看得見的脈絡。
-
-<Note>
-  **唯讀且私密。** CLI 可以*讀取*你的日記、智慧、實踐與目標，但**無法**寫入你的日記、更改設定，或存取任何其他人的資料。你的登入憑證儲存在作業系統的安全金鑰鏈中 — 絕不以明文保存。
-</Note>
-
-## 安裝
+免安裝 — 只要新增一次連接器即可。
 
 <Steps>
-  <Step title="安裝 CLI">
-    需要 Python 3.10 以上。我們建議使用 [pipx](https://pipx.pypa.io/)，它會安裝在獨立的環境中：
+  <Step title="在 Claude 中（claude.ai）">
+    開啟 **設定 → 連接器 → 新增自訂連接器**，貼上下方的網址，然後點選 **連接** 並以你的 Life Note 帳號登入。
+  </Step>
+  <Step title="在 ChatGPT 中（Pro 及以上方案）">
+    開啟 **設定 → 連接器**，以相同的網址新增一個自訂連接器，然後登入。
+  </Step>
+</Steps>
+
+Life Note 連接器網址：
+
+```
+https://mcp.mylifenote.ai/mcp
+```
+
+<Note>
+  新增自訂連接器可能需要付費的 Claude 或 ChatGPT 方案。它也可搭配 Gemini Enterprise 及其他相容 MCP 的助理使用。
+</Note>
+
+## 你可以問些什麼
+
+連接完成後，只要像平常一樣說話 — 你的助理會自行決定何時查看你的日記：
+
+> _「我最近都在寫些什麼？」_
+>
+> _「今年我對工作的日記中，出現了哪些模式？」_
+>
+> _「關於焦慮，我保存了哪些智慧？」_
+>
+> _「我現在正在努力的是什麼 — 背後更深層的原因又是什麼？」_
+>
+> _「根據我寫下的內容，關於這個決定，我該記住些什麼？」_
+
+<Note>
+  **唯讀且私密。** 你的 AI 可以*閱讀*你的日記、智慧、練習與目標。它**無法**寫入你的日記、更改你的設定，或存取任何其他人的資料。你的登入權杖以安全方式儲存 — 絕不以明文形式保存 — 而且你隨時可以在設定中中斷連接。
+</Note>
+
+---
+
+## 給開發者 — CLI 工具
+
+偏好終端機，或在程式開發代理中工作？安裝 `lifenote` CLI，在命令列中使用同一份日記。
+
+<Steps>
+  <Step title="安裝並登入">
+    需要 Python 3.10 以上版本。我們推薦 [pipx](https://pipx.pypa.io/)：
 
     ```bash
     pipx install lifenote
-    ```
-
-    或使用一般的 pip：
-
-    ```bash
-    pip install lifenote
-    ```
-  </Step>
-  <Step title="登入">
-    ```bash
     lifenote auth login
     ```
-
-    這會開啟瀏覽器，讓你用 Life Note 帳號授權存取。授權完成後，就連上了。
-
-    在沒有瀏覽器的機器上，改用環境變數 `LIFENOTE_API_TOKEN`。
   </Step>
-  <Step title="試試看">
+  <Step title="將它連接到你的程式開發代理">
+    Claude Code — 執行這行指令。Cursor 與 Codex 使用相同的模式；若是 Claude Desktop，請將它加入你的 MCP 設定。
+
+    ```bash
+    claude mcp add lifenote -- lifenote mcp
+    ```
+  </Step>
+  <Step title="教你的代理何時該使用它">
+    安裝隨附的技能，讓你的代理知道何時該取用你的日記 — 以及何時不該：
+
+    ```bash
+    lifenote skills install
+    ```
+  </Step>
+  <Step title="或直接從終端機使用">
+    搜尋你的日記，並將結果導入任何代理：
+
     ```bash
     lifenote today
-    lifenote search "對發布的焦慮"
-    lifenote entries --since 7d
-    ```
-
-    或直接接進 AI 代理：
-
-    ```bash
-    lifenote search "倦怠" --json | claude "幫我整理其中的模式"
+    lifenote search "anxiety about launch"
+    lifenote search "burnout" --json | claude "summarize the patterns"
     ```
   </Step>
 </Steps>
 
-## 在 AI 代理裡使用
+### 你的代理能做些什麼
 
-CLI 支援 MCP，所以 Claude Code、Cursor、Claude Desktop 等代理可以直接呼叫它。連上之後，你只要正常對話 — 由代理決定何時查看你的日記：
+14 種唯讀工具，涵蓋你的日記、保存的智慧、導師對話、練習與探索，以及人生方向。因此你可以這樣問你的代理：
 
-> _「我這一個月來對自己有什麼新的認識？」_
+> _「關於我的共同創辦人，我都寫了些什麼？」_
 >
-> _「我卡在一個決定上 — 我之前寫過哪些相關的想法？」_
-
-各個代理的完整設定說明，請見 GitHub README。
+> _「總結今年我對工作的日記中的主題。」_
+>
+> _「我的人生目標，以及今年的重點是什麼？」_
 
 ## 了解更多
 
 <CardGroup cols={2}>
-  <Card title="GitHub — 完整文件與原始碼" icon="github" href="https://github.com/dandanbang/lifenote-cli">
-    各代理的設定方式、所有指令，以及原始碼。
+  <Card title="GitHub — 文件與原始碼" icon="github" href="https://github.com/dandanbang/lifenote-cli">
+    各個代理的設定方式、所有指令、完整的工具清單，以及原始碼。
   </Card>
   <Card title="從 PyPI 安裝" icon="python" href="https://pypi.org/project/lifenote/">
     已發布的 `lifenote` 套件。

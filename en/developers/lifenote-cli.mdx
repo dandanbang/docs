@@ -1,83 +1,118 @@
 ---
-title: "Life Note CLI"
-description: "Bring your private journal into your AI agents — Claude Code, Cursor, Codex, Claude Desktop — as a read-only memory layer."
-icon: "terminal"
+title: "Connect Life Note to your AI"
+description: "Bring your private journal into the AI you already use — Claude, ChatGPT, Claude Code, Cursor — as a read-only memory layer."
+icon: "plug"
 ---
 
-Your journal is where you think most honestly. The Life Note CLI lets the AI tools you already use draw on that thinking — privately, and only when you ask.
+Your journal is where you think most honestly. Connect it to the AI you already use — in a chat app or in your terminal — so it can draw on your real reflections, wisdom, and goals. Read-only, private, and only when you ask.
 
-Install one small command-line tool, sign in once, and any MCP-compatible agent can read your entries, saved wisdom, practices, and goals to give you answers grounded in _your_ own life instead of generic advice.
+## Two ways to connect
 
-<Info>
-  **This is for people who use AI coding agents or desktop assistants** (Claude Code, Cursor, Codex, Claude Desktop, and similar). If you only use Life Note in the app, you don't need this.
-</Info>
+<CardGroup cols={2}>
+  <Card title="In a chat app — no install" icon="comments">
+    Add Life Note to **Claude** or **ChatGPT** and sign in once. Best for most people.
+  </Card>
+  <Card title="In your terminal or coding agent" icon="terminal">
+    The `lifenote` command-line tool, for Claude Code, Cursor, and Codex. Best for developers.
+  </Card>
+</CardGroup>
 
-## What you can use it for
+## Connect in Claude or ChatGPT
 
-- **Ask an agent about your own life.** _"What have I been writing about lately?"_ — and it answers from your real entries.
-- **Find patterns across months.** _"Summarize the themes in my journaling about work this year."_
-- **Pull your saved wisdom into your work.** The passages you've kept from mentors, available wherever you write.
-- **Ground any conversation in your goals.** Your Life Goal, Yearly Goals, practices, and quests become context the agent can see.
-
-<Note>
-  **Read-only and private.** The CLI can *read* your journal, wisdom, practices, and goals. It **cannot** write to your journal, change your settings, or access anyone else's data. Your sign-in token is stored in your operating system's secure keychain — never in plain text.
-</Note>
-
-## Install
+No install needed — you just add a connector once.
 
 <Steps>
-  <Step title="Install the CLI">
-    Requires Python 3.10+. We recommend [pipx](https://pipx.pypa.io/) so it installs in its own isolated environment:
+  <Step title="In Claude (claude.ai)">
+    Open **Settings → Connectors → Add custom connector**, paste the URL below, then **Connect** and sign in with your Life Note account.
+  </Step>
+  <Step title="In ChatGPT (Pro and above)">
+    Open **Settings → Connectors** and add a custom connector with the same URL, then sign in.
+  </Step>
+</Steps>
+
+Life Note connector URL:
+
+```
+https://mcp.mylifenote.ai/mcp
+```
+
+<Note>
+  Adding a custom connector may require a paid Claude or ChatGPT plan. It also works with Gemini Enterprise and other MCP-compatible assistants.
+</Note>
+
+## What you can ask
+
+Once connected, just talk normally — your assistant decides when to look at your journal:
+
+> _"What have I been writing about lately?"_
+>
+> _"What patterns show up in my journaling about work this year?"_
+>
+> _"What wisdom have I saved about anxiety?"_
+>
+> _"What am I working on right now — and what's the deeper why?"_
+>
+> _"Based on what I've written, what should I keep in mind about this decision?"_
+
+<Note>
+  **Read-only and private.** Your AI can *read* your journal, wisdom, practices, and goals. It **cannot** write to your journal, change your settings, or access anyone else's data. Your sign-in token is stored securely — never in plain text — and you can disconnect any time from Settings.
+</Note>
+
+---
+
+## For developers — the CLI
+
+Prefer the terminal, or work in a coding agent? Install the `lifenote` CLI for the same journal, at the command line.
+
+<Steps>
+  <Step title="Install & sign in">
+    Requires Python 3.10+. We recommend [pipx](https://pipx.pypa.io/):
 
     ```bash
     pipx install lifenote
-    ```
-
-    Or with plain pip:
-
-    ```bash
-    pip install lifenote
-    ```
-  </Step>
-  <Step title="Sign in">
-    ```bash
     lifenote auth login
     ```
-
-    This opens your browser to approve access with your Life Note account. Once approved, you're connected.
-
-    On a headless machine (no browser), set the `LIFENOTE_API_TOKEN` environment variable instead.
   </Step>
-  <Step title="Try it">
+  <Step title="Connect it to your coding agent">
+    Claude Code — run this. Cursor and Codex use the same pattern; for Claude Desktop, add it to your MCP config.
+
+    ```bash
+    claude mcp add lifenote -- lifenote mcp
+    ```
+  </Step>
+  <Step title="Teach your agent when to use it">
+    Install the bundled skill so your agent knows when to reach for your journal — and when not to:
+
+    ```bash
+    lifenote skills install
+    ```
+  </Step>
+  <Step title="Or use it straight from the terminal">
+    Search your journal and pipe the results into any agent:
+
     ```bash
     lifenote today
     lifenote search "anxiety about launch"
-    lifenote entries --since 7d
-    ```
-
-    Or pipe it straight into an agent:
-
-    ```bash
     lifenote search "burnout" --json | claude "summarize the patterns"
     ```
   </Step>
 </Steps>
 
-## Using it inside an AI agent
+### What your agent can do
 
-The CLI is MCP-compatible, so agents like Claude Code, Cursor, and Claude Desktop can call it directly. Once connected, you just talk normally — the agent decides when to look at your journal:
+14 read-only tools span your journal, saved wisdom, mentor conversations, practices & quests, and life direction. So you can ask your agent things like:
 
-> _"What have I learned about myself in the last month?"_
+> _"What have I been writing about my cofounder?"_
 >
-> _"I'm stuck on a decision — what have I already written about this?"_
-
-Full setup instructions for each agent live in the GitHub README.
+> _"Summarize the themes in my journaling about work this year."_
+>
+> _"What's my Life Goal and this year's focus?"_
 
 ## Learn more
 
 <CardGroup cols={2}>
-  <Card title="GitHub — full docs & source" icon="github" href="https://github.com/dandanbang/lifenote-cli">
-    Setup for each agent, all commands, and the source code.
+  <Card title="GitHub — docs & source" icon="github" href="https://github.com/dandanbang/lifenote-cli">
+    Setup for each agent, all commands, the full tool list, and the source code.
   </Card>
   <Card title="Install from PyPI" icon="python" href="https://pypi.org/project/lifenote/">
     The published `lifenote` package.

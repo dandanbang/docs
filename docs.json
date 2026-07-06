@@ -71,7 +71,7 @@
                 ]
               },
               {
-                "group": "For Developers",
+                "group": "Connect to AI",
                 "icon": "terminal",
                 "pages": [
                   "en/developers/lifenote-cli"
@@ -122,7 +122,7 @@
                 ]
               },
               {
-                "group": "開發者專區",
+                "group": "連接 AI",
                 "icon": "terminal",
                 "pages": [
                   "zh-Hant/developers/lifenote-cli"
