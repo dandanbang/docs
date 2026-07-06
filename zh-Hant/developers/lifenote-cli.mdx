@@ -1,0 +1,85 @@
+---
+title: "Life Note CLI 命令列工具"
+description: "把你的私人日記帶進你的 AI 工具 — Claude Code、Cursor、Codex、Claude Desktop — 作為一層唯讀的記憶。"
+icon: "terminal"
+---
+
+日記是你最誠實思考的地方。Life Note CLI 讓你日常使用的 AI 工具，能夠在你需要時，私密地取用這些思考。
+
+只要安裝一個小小的命令列工具、登入一次，任何支援 MCP 的 AI 代理就能讀取你的日記、收藏的智慧、實踐與目標，給你根據「你自己的人生」而生的答案，而不是千篇一律的建議。
+
+<Info>
+  **這是為使用 AI 程式代理或桌面助手的人準備的**（Claude Code、Cursor、Codex、Claude Desktop 等）。如果你只在 App 裡使用 Life Note，就用不到這個工具。
+</Info>
+
+## 你可以用它來做什麼
+
+- **讓 AI 代理談你自己的人生。** _「我最近都在寫些什麼？」_ — 它會根據你真實的日記回答。
+- **看見跨越數月的模式。** _「幫我整理我今年關於工作的日記主題。」_
+- **把收藏的智慧帶進你的工作。** 你從導師那裡保存下來的段落，在你書寫的任何地方都能取用。
+- **讓每段對話都以你的目標為根。** 你的人生目標、年度目標、實踐與探索，都成為 AI 代理看得見的脈絡。
+
+<Note>
+  **唯讀且私密。** CLI 可以*讀取*你的日記、智慧、實踐與目標，但**無法**寫入你的日記、更改設定，或存取任何其他人的資料。你的登入憑證儲存在作業系統的安全金鑰鏈中 — 絕不以明文保存。
+</Note>
+
+## 安裝
+
+<Steps>
+  <Step title="安裝 CLI">
+    需要 Python 3.10 以上。我們建議使用 [pipx](https://pipx.pypa.io/)，它會安裝在獨立的環境中：
+
+    ```bash
+    pipx install lifenote
+    ```
+
+    或使用一般的 pip：
+
+    ```bash
+    pip install lifenote
+    ```
+  </Step>
+  <Step title="登入">
+    ```bash
+    lifenote auth login
+    ```
+
+    這會開啟瀏覽器，讓你用 Life Note 帳號授權存取。授權完成後，就連上了。
+
+    在沒有瀏覽器的機器上，改用環境變數 `LIFENOTE_API_TOKEN`。
+  </Step>
+  <Step title="試試看">
+    ```bash
+    lifenote today
+    lifenote search "對發布的焦慮"
+    lifenote entries --since 7d
+    ```
+
+    或直接接進 AI 代理：
+
+    ```bash
+    lifenote search "倦怠" --json | claude "幫我整理其中的模式"
+    ```
+  </Step>
+</Steps>
+
+## 在 AI 代理裡使用
+
+CLI 支援 MCP，所以 Claude Code、Cursor、Claude Desktop 等代理可以直接呼叫它。連上之後，你只要正常對話 — 由代理決定何時查看你的日記：
+
+> _「我這一個月來對自己有什麼新的認識？」_
+>
+> _「我卡在一個決定上 — 我之前寫過哪些相關的想法？」_
+
+各個代理的完整設定說明，請見 GitHub README。
+
+## 了解更多
+
+<CardGroup cols={2}>
+  <Card title="GitHub — 完整文件與原始碼" icon="github" href="https://github.com/dandanbang/lifenote-cli">
+    各代理的設定方式、所有指令，以及原始碼。
+  </Card>
+  <Card title="從 PyPI 安裝" icon="python" href="https://pypi.org/project/lifenote/">
+    已發布的 `lifenote` 套件。
+  </Card>
+</CardGroup>

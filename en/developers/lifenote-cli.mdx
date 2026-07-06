@@ -1,0 +1,85 @@
+---
+title: "Life Note CLI"
+description: "Bring your private journal into your AI agents — Claude Code, Cursor, Codex, Claude Desktop — as a read-only memory layer."
+icon: "terminal"
+---
+
+Your journal is where you think most honestly. The Life Note CLI lets the AI tools you already use draw on that thinking — privately, and only when you ask.
+
+Install one small command-line tool, sign in once, and any MCP-compatible agent can read your entries, saved wisdom, practices, and goals to give you answers grounded in _your_ own life instead of generic advice.
+
+<Info>
+  **This is for people who use AI coding agents or desktop assistants** (Claude Code, Cursor, Codex, Claude Desktop, and similar). If you only use Life Note in the app, you don't need this.
+</Info>
+
+## What you can use it for
+
+- **Ask an agent about your own life.** _"What have I been writing about lately?"_ — and it answers from your real entries.
+- **Find patterns across months.** _"Summarize the themes in my journaling about work this year."_
+- **Pull your saved wisdom into your work.** The passages you've kept from mentors, available wherever you write.
+- **Ground any conversation in your goals.** Your Life Goal, Yearly Goals, practices, and quests become context the agent can see.
+
+<Note>
+  **Read-only and private.** The CLI can *read* your journal, wisdom, practices, and goals. It **cannot** write to your journal, change your settings, or access anyone else's data. Your sign-in token is stored in your operating system's secure keychain — never in plain text.
+</Note>
+
+## Install
+
+<Steps>
+  <Step title="Install the CLI">
+    Requires Python 3.10+. We recommend [pipx](https://pipx.pypa.io/) so it installs in its own isolated environment:
+
+    ```bash
+    pipx install lifenote
+    ```
+
+    Or with plain pip:
+
+    ```bash
+    pip install lifenote
+    ```
+  </Step>
+  <Step title="Sign in">
+    ```bash
+    lifenote auth login
+    ```
+
+    This opens your browser to approve access with your Life Note account. Once approved, you're connected.
+
+    On a headless machine (no browser), set the `LIFENOTE_API_TOKEN` environment variable instead.
+  </Step>
+  <Step title="Try it">
+    ```bash
+    lifenote today
+    lifenote search "anxiety about launch"
+    lifenote entries --since 7d
+    ```
+
+    Or pipe it straight into an agent:
+
+    ```bash
+    lifenote search "burnout" --json | claude "summarize the patterns"
+    ```
+  </Step>
+</Steps>
+
+## Using it inside an AI agent
+
+The CLI is MCP-compatible, so agents like Claude Code, Cursor, and Claude Desktop can call it directly. Once connected, you just talk normally — the agent decides when to look at your journal:
+
+> _"What have I learned about myself in the last month?"_
+>
+> _"I'm stuck on a decision — what have I already written about this?"_
+
+Full setup instructions for each agent live in the GitHub README.
+
+## Learn more
+
+<CardGroup cols={2}>
+  <Card title="GitHub — full docs & source" icon="github" href="https://github.com/dandanbang/lifenote-cli">
+    Setup for each agent, all commands, and the source code.
+  </Card>
+  <Card title="Install from PyPI" icon="python" href="https://pypi.org/project/lifenote/">
+    The published `lifenote` package.
+  </Card>
+</CardGroup>
