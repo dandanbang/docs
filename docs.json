@@ -7,21 +7,70 @@
     "og:image": "https://guide.mylifenote.ai/images/hero.png"
   },
   "redirects": [
-    { "source": "/start-here/welcome-to-life-note", "destination": "/en/start-here/welcome-to-life-note" },
-    { "source": "/essentials/journaling-with-great-minds", "destination": "/en/essentials/journaling-with-great-minds" },
-    { "source": "/essentials/deep-chat", "destination": "/en/essentials/deep-chat" },
-    { "source": "/essentials/meet-your-mentors", "destination": "/en/essentials/meet-your-mentors" },
-    { "source": "/essentials/weekly-letter-inner-portrait", "destination": "/en/essentials/weekly-letter-inner-portrait" },
-    { "source": "/essentials/memory-orb", "destination": "/en/essentials/memory-orb" },
-    { "source": "/essentials/wisdom-collection", "destination": "/en/essentials/wisdom-collection" },
-    { "source": "/advanced/inner-wisdom", "destination": "/en/advanced/inner-wisdom" },
-    { "source": "/advanced/your-inner-weather", "destination": "/en/advanced/your-inner-weather" },
-    { "source": "/advanced/aligned-actions", "destination": "/en/advanced/aligned-actions" },
-    { "source": "/advanced/goals", "destination": "/en/advanced/goals" },
-    { "source": "/advanced/guidance-modes", "destination": "/en/advanced/guidance-modes" },
-    { "source": "/advanced/reminders", "destination": "/en/advanced/reminders" },
-    { "source": "/advanced/yearly-reflection", "destination": "/en/advanced/yearly-reflection" },
-    { "source": "/developers/lifenote-cli", "destination": "/en/developers/lifenote-cli" }
+    {
+      "source": "/start-here/welcome-to-life-note",
+      "destination": "/en/start-here/welcome-to-life-note"
+    },
+    {
+      "source": "/essentials/journaling-with-great-minds",
+      "destination": "/en/essentials/journaling-with-great-minds"
+    },
+    {
+      "source": "/essentials/deep-chat",
+      "destination": "/en/essentials/deep-chat"
+    },
+    {
+      "source": "/essentials/meet-your-mentors",
+      "destination": "/en/essentials/meet-your-mentors"
+    },
+    {
+      "source": "/essentials/weekly-letter-inner-portrait",
+      "destination": "/en/essentials/weekly-letter-inner-portrait"
+    },
+    {
+      "source": "/essentials/memory-orb",
+      "destination": "/en/essentials/memory-orb"
+    },
+    {
+      "source": "/essentials/wisdom-collection",
+      "destination": "/en/essentials/wisdom-collection"
+    },
+    {
+      "source": "/advanced/inner-wisdom",
+      "destination": "/en/advanced/inner-wisdom"
+    },
+    {
+      "source": "/advanced/your-inner-weather",
+      "destination": "/en/advanced/your-inner-weather"
+    },
+    {
+      "source": "/advanced/aligned-actions",
+      "destination": "/en/advanced/aligned-actions"
+    },
+    {
+      "source": "/advanced/goals",
+      "destination": "/en/advanced/goals"
+    },
+    {
+      "source": "/advanced/guidance-modes",
+      "destination": "/en/advanced/guidance-modes"
+    },
+    {
+      "source": "/advanced/reminders",
+      "destination": "/en/advanced/reminders"
+    },
+    {
+      "source": "/advanced/yearly-reflection",
+      "destination": "/en/advanced/yearly-reflection"
+    },
+    {
+      "source": "/developers/lifenote-cli",
+      "destination": "/en/developers/lifenote-cli"
+    },
+    {
+      "source": "/en/advanced/guidance-modes",
+      "destination": "/en/advanced/tune-your-mentors"
+    }
   ],
   "colors": {
     "primary": "#3d1b89",
@@ -43,6 +92,7 @@
                 "expanded": true,
                 "pages": [
                   "en/start-here/welcome-to-life-note",
+                  "en/start-here/bring-your-history-in",
                   "en/start-here/privacy-and-security"
                 ]
               },
@@ -51,7 +101,9 @@
                 "icon": "book-open",
                 "pages": [
                   "en/essentials/journaling-with-great-minds",
+                  "en/essentials/more-ways-to-capture",
                   "en/essentials/deep-chat",
+                  "en/essentials/daily-practice-and-rituals",
                   "en/essentials/meet-your-mentors",
                   "en/essentials/weekly-letter-inner-portrait",
                   "en/essentials/memory-orb",
@@ -66,9 +118,10 @@
                   "en/advanced/your-inner-weather",
                   "en/advanced/aligned-actions",
                   "en/advanced/goals",
-                  "en/advanced/guidance-modes",
+                  "en/advanced/tune-your-mentors",
                   "en/advanced/reminders",
-                  "en/advanced/yearly-reflection"
+                  "en/advanced/yearly-reflection",
+                  "en/advanced/your-inner-world"
                 ]
               },
               {
@@ -78,7 +131,8 @@
                   "en/developers/lifenote-cli"
                 ]
               },
-              "faq"
+              "faq",
+              "en/earn-free-months"
             ]
           }
         ]
@@ -156,15 +210,15 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
