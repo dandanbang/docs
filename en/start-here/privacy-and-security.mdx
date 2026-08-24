@@ -1,0 +1,117 @@
+---
+title: "Privacy and security"
+sidebarTitle: "Privacy & Security"
+icon: "lock"
+description: "How Life Note protects your journal — encryption, who can read your entries, and how to export or delete everything."
+---
+
+Your journal holds things you may never have said out loud. Here is exactly how Life Note handles it, in plain language.
+
+## The short version
+
+<CardGroup cols={2}>
+  <Card title="Encrypted before storage" icon="lock">
+    Every entry is encrypted with AES-GCM (256-bit) before it is written to our servers. In storage it is ciphertext, not readable text.
+  </Card>
+  <Card title="Your own key" icon="key">
+    Each account has its own encryption key. One account's key cannot open another account's entries.
+  </Card>
+  <Card title="Never trained on" icon="robot">
+    Your writing is never sold, never read by our staff, and never used to train an AI model.
+  </Card>
+  <Card title="Yours to take back" icon="download">
+    Export everything in a few clicks, or ask us to delete it all.
+  </Card>
+</CardGroup>
+
+## How your entries are stored
+
+When you write an entry, it is encrypted before it lands on our servers.
+
+- **Cipher.** AES-GCM with a 256-bit key — the same standard used by banks and governments. Every entry gets a fresh initialization vector, and the cipher detects tampering.
+- **Per-account keys.** Your key belongs to your account alone.
+- **Hardware-protected key management.** The key that protects your encryption key lives in AWS Key Management Service, backed by hardware security modules. It is never stored in readable form on our application servers, and every single use of it is recorded in an independent audit trail.
+- **Short-lived credentials.** Systems that request a key use scoped, short-lived credentials rather than long-lived static secrets.
+- **In transit.** Everything travels over HTTPS.
+
+## When your entries are decrypted
+
+Your entries are decrypted only to serve you: when you open your own journal, and when an AI mentor reads an entry in order to write a reflection for you. Providing that reflection requires that our systems can decrypt your entry at that moment.
+
+What does not happen:
+
+- Your entries are **not read by our staff**.
+- They are **not sold**, and not handed to a third party.
+- They are **never used to train an AI model** — not ours, not anyone else's.
+
+<Note>
+  Life Note is not end-to-end encrypted in the strict sense, because an AI mentor has to read your entry to respond to it. We would rather say that plainly than use a term that sounds stronger than what we do.
+</Note>
+
+## Lock the app itself
+
+Encryption protects your journal on our servers. A lock protects it from whoever picks up your phone or sits at your desk.
+
+<Tabs>
+  <Tab title="Web">
+    Go to **Settings → Privacy** and turn on **Privacy Lock**. Set a PIN, and Life Note asks for it before it opens — and again after a period of inactivity. You can also hit **Lock now** at any time.
+  </Tab>
+  <Tab title="Mobile">
+    Go to **Settings** and turn on biometric unlock. Life Note then requires your fingerprint or your face before it opens.
+  </Tab>
+</Tabs>
+
+## Export your data
+
+Go to **Settings → Export**. You can choose:
+
+- **Format** — CSV, JSON, Markdown, or a ZIP archive
+- **Date range** — everything, or a slice of it
+- **What to include** — your entries alone, or your entries plus mentor responses and journal analysis
+
+The export is yours to keep, back up, or move somewhere else.
+
+## Connect an AI agent
+
+You can connect Life Note to Claude, ChatGPT, Cursor, and other apps that speak the Model Context Protocol. When you do:
+
+- The connection is **read-only**. An agent can read your entries, mentor responses, past conversations, saved Wisdom, Practices, and Goals. It cannot write, modify, or delete anything.
+- Every connection needs **your explicit approval** in your browser, and you see exactly which permissions you are granting before you approve.
+- Each agent gets its **own scoped token**. We email you every time a new agent is connected, so you have a permanent record.
+- You can **revoke any agent — or all of them — at any time** at [mylifenote.ai/settings/agents](https://mylifenote.ai/settings/agents). Revocation takes effect within seconds. The same page shows the last 30 days of agent activity.
+
+<Warning>
+  Once an agent receives your data, that agent's own AI provider (Anthropic, OpenAI, and so on) processes it under **their** privacy policy, not ours. We do not control what they do with it. Review the policy of whichever agent you connect.
+</Warning>
+
+## Delete your account
+
+Email [daniel@mylifenote.ai](mailto:daniel@mylifenote.ai) with the subject line **Account Deletion Request** and your registered email address in the body. We process it within 7 business days.
+
+We permanently delete your account information, journal entries and responses, usage history and preferences, and any other content you created. Some traces persist briefly afterward: up to 30 days for legal compliance, up to 90 days in encrypted backups, and anonymized aggregate analytics that are no longer tied to you.
+
+## Who else touches your data
+
+| Service | What it does | What it sees |
+| --- | --- | --- |
+| AWS Key Management Service | Protects your encryption key | Never sees your entries |
+| Google Sign-In | Signs you in | Your email address |
+| RevenueCat | Manages subscription status | Subscription status and transaction IDs |
+| Apple App Store / Google Play | Processes payments | Payment details — we never store them |
+| Google Analytics | Usage patterns | Anonymized usage data |
+| Sentry | Error tracking and app stability | Technical error data |
+
+We do not sell your personal data, and we never will.
+
+## The full details
+
+<CardGroup cols={2}>
+  <Card title="Privacy Policy" icon="file-lines" href="https://www.mylifenote.ai/privacy-policy">
+    The complete policy, including your rights and children's privacy.
+  </Card>
+  <Card title="How the encryption works" icon="shield-halved" href="https://blog.mylifenote.ai/your-thoughts-are-safe-how-life-note-protects-your-privacy-with-aes-gcm-encryption/">
+    A longer write-up on AES-GCM and hardware-protected keys.
+  </Card>
+</CardGroup>
+
+Still have a question about your data? Email [daniel@mylifenote.ai](mailto:daniel@mylifenote.ai). A human reads every message.
