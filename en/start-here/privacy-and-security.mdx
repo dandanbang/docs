@@ -85,7 +85,7 @@ Encryption protects your journal on our servers. A lock protects it from whoever
 
 ## Export your data
 
-Go to **Settings → Export**. You can choose:
+Go to **Settings → Data Management → Export**. You can choose:
 
 - **Format** — CSV, JSON, Markdown, or a ZIP archive
 - **Date range** — everything, or a slice of it
@@ -95,7 +95,7 @@ The export is yours to keep, back up, or move somewhere else.
 
 ## Connect an AI agent
 
-You can connect Life Note to Claude, ChatGPT, Cursor, and other apps that speak the Model Context Protocol. When you do:
+You can connect Life Note to Claude, ChatGPT, Cursor, and other apps that speak the Model Context Protocol — see [Connect Life Note to your AI](/en/developers/lifenote-cli) for how to set it up. When you do:
 
 - The connection is **read-only**. An agent can read your entries, mentor responses, past conversations, saved Wisdom, Practices, and Goals. It cannot write, modify, or delete anything.
 - Every connection needs **your explicit approval** in your browser, and you see exactly which permissions you are granting before you approve.
@@ -108,22 +108,24 @@ You can connect Life Note to Claude, ChatGPT, Cursor, and other apps that speak 
 
 ## Delete your account
 
-Email [daniel@mylifenote.ai](mailto:daniel@mylifenote.ai) with the subject line **Account Deletion Request** and your registered email address in the body. We process it within 7 business days.
+You can do this yourself, in the app.
 
-We permanently delete your account information, journal entries and responses, usage history and preferences, and any other content you created. Some traces persist briefly afterward: up to 30 days for legal compliance, up to 90 days in encrypted backups, and anonymized aggregate analytics that are no longer tied to you.
+<Tabs>
+  <Tab title="Web">
+    Go to **Settings → Data Management** and click **Delete Account**, then confirm.
+  </Tab>
+  <Tab title="Mobile">
+    Go to **Settings → Account Management** and tap **Delete Account**, then confirm.
+  </Tab>
+</Tabs>
 
-## Who else touches your data
+Your account is then scheduled for deletion within 7 days, and you get a confirmation email once it is done. We permanently delete your account information, journal entries and responses, usage history and preferences, and everything else you created. Some traces persist briefly afterward: up to 30 days for legal compliance, up to 90 days in encrypted backups, and anonymized aggregate analytics no longer tied to you.
 
-| Service | What it does | What it sees |
-| --- | --- | --- |
-| AWS Key Management Service | Protects your encryption key | Never sees your entries |
-| Google Sign-In | Signs you in | Your email address |
-| RevenueCat | Manages subscription status | Subscription status and transaction IDs |
-| Apple App Store / Google Play | Processes payments | Payment details — we never store them |
-| Google Analytics | Usage patterns | Anonymized usage data |
-| Sentry | Error tracking and app stability | Technical error data |
+<Warning>
+  Deletion cannot be undone, and we cannot recover your entries afterward. If you only want a copy of your writing, export it first.
+</Warning>
 
-We do not sell your personal data, and we never will.
+If you cannot get into your account, email [daniel@mylifenote.ai](mailto:daniel@mylifenote.ai) with the subject line **Account Deletion Request** and we will handle it for you.
 
 ## The full details
 

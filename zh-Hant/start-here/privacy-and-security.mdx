@@ -85,7 +85,7 @@ description: "Life Note 如何保護你的日記 — 加密方式、誰能讀到
 
 ## 匯出你的資料
 
-前往 **設定 → 匯出**。你可以選擇：
+前往 **設定 → 資料管理 → 匯出**。你可以選擇：
 
 - **格式** — CSV、JSON、Markdown 或 ZIP 壓縮檔
 - **日期範圍** — 全部，或其中一段時間
@@ -95,7 +95,7 @@ description: "Life Note 如何保護你的日記 — 加密方式、誰能讀到
 
 ## 連接 AI 代理
 
-你可以把 Life Note 連接到 Claude、ChatGPT、Cursor，以及其他支援 Model Context Protocol 的應用程式。連接之後：
+你可以把 Life Note 連接到 Claude、ChatGPT、Cursor，以及其他支援 Model Context Protocol 的應用程式 — 設定方式請見〈[將 Life Note 連接到你的 AI](/zh-Hant/developers/lifenote-cli)〉。連接之後：
 
 - 連線是**唯讀**的。代理可以讀取你的日記、導師回應、過往對話、收藏的智慧、練習與目標，但無法寫入、修改或刪除任何內容。
 - 每次連接都需要**你在瀏覽器中明確授權**，而且在同意之前，你會清楚看到自己授予了哪些權限。
@@ -108,22 +108,24 @@ description: "Life Note 如何保護你的日記 — 加密方式、誰能讀到
 
 ## 刪除你的帳號
 
-寄信到 [daniel@mylifenote.ai](mailto:daniel@mylifenote.ai)，主旨寫上 **Account Deletion Request**，內文附上你註冊時使用的電子郵件地址。我們會在 7 個工作天內處理。
+你可以自己在 App 裡完成。
 
-我們會永久刪除你的帳號資訊、日記與回應、使用紀錄與偏好設定，以及你建立的所有其他內容。少數痕跡會短暫留存：法規遵循用途最多 30 天、加密備份最多 90 天，以及已經無法連結到你個人的匿名彙總分析資料。
+<Tabs>
+  <Tab title="網頁版">
+    前往 **設定 → 資料管理**，點選 **刪除帳戶**，然後確認。
+  </Tab>
+  <Tab title="手機版">
+    前往 **設定 → 帳戶管理**，點選 **刪除帳戶**，然後確認。
+  </Tab>
+</Tabs>
 
-## 還有誰會接觸到你的資料
+你的帳號會在 7 天內被安排刪除，完成後你會收到一封確認信。我們會永久刪除你的帳號資訊、日記與回應、使用紀錄與偏好設定，以及你建立的所有其他內容。少數痕跡會短暫留存：法規遵循用途最多 30 天、加密備份最多 90 天，以及已經無法連結到你個人的匿名彙總分析資料。
 
-| 服務 | 用途 | 能看到什麼 |
-| --- | --- | --- |
-| AWS Key Management Service | 保護你的加密金鑰 | 從不接觸你的日記內容 |
-| Google 登入 | 帳號登入 | 你的電子郵件地址 |
-| RevenueCat | 管理訂閱狀態 | 訂閱狀態與交易編號 |
-| Apple App Store / Google Play | 處理付款 | 付款資訊 — 我們從不儲存 |
-| Google Analytics | 使用行為分析 | 匿名化的使用數據 |
-| Sentry | 錯誤追蹤與穩定性監控 | 技術性錯誤資料 |
+<Warning>
+  刪除無法復原，事後我們也無法為你救回任何日記。如果你只是想保留一份自己的文字，請先匯出。
+</Warning>
 
-我們不販售你的個人資料，未來也絕不會。
+如果你無法登入自己的帳號，請寄信到 [daniel@mylifenote.ai](mailto:daniel@mylifenote.ai)，主旨寫上 **Account Deletion Request**，我們會為你處理。
 
 ## 完整說明
 
