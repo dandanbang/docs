@@ -42,7 +42,8 @@
                 "icon": "arrow-down-to-line",
                 "expanded": true,
                 "pages": [
-                  "en/start-here/welcome-to-life-note"
+                  "en/start-here/welcome-to-life-note",
+                  "en/start-here/privacy-and-security"
                 ]
               },
               {
@@ -93,7 +94,8 @@
                 "icon": "arrow-down-to-line",
                 "expanded": true,
                 "pages": [
-                  "zh-Hant/start-here/welcome-to-life-note"
+                  "zh-Hant/start-here/welcome-to-life-note",
+                  "zh-Hant/start-here/privacy-and-security"
                 ]
               },
               {
