@@ -92,6 +92,7 @@
                 "expanded": true,
                 "pages": [
                   "en/start-here/welcome-to-life-note",
+                  "faq",
                   "en/start-here/bring-your-history-in",
                   "en/start-here/privacy-and-security"
                 ]
@@ -121,7 +122,8 @@
                   "en/advanced/tune-your-mentors",
                   "en/advanced/reminders",
                   "en/advanced/yearly-reflection",
-                  "en/advanced/your-inner-world"
+                  "en/advanced/your-inner-world",
+                  "en/earn-free-months"
                 ]
               },
               {
@@ -130,9 +132,7 @@
                 "pages": [
                   "en/developers/lifenote-cli"
                 ]
-              },
-              "faq",
-              "en/earn-free-months"
+              }
             ]
           }
         ]
