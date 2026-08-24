@@ -70,6 +70,10 @@
     {
       "source": "/en/advanced/guidance-modes",
       "destination": "/en/advanced/tune-your-mentors"
+    },
+    {
+      "source": "/zh-Hant/advanced/guidance-modes",
+      "destination": "/zh-Hant/advanced/tune-your-mentors"
     }
   ],
   "colors": {
@@ -149,6 +153,8 @@
                 "expanded": true,
                 "pages": [
                   "zh-Hant/start-here/welcome-to-life-note",
+                  "file",
+                  "zh-Hant/start-here/bring-your-history-in",
                   "zh-Hant/start-here/privacy-and-security"
                 ]
               },
@@ -157,9 +163,11 @@
                 "icon": "book-open",
                 "pages": [
                   "zh-Hant/essentials/journaling-with-great-minds",
+                  "zh-Hant/essentials/more-ways-to-journal",
                   "zh-Hant/essentials/deep-chat",
                   "zh-Hant/essentials/meet-your-mentors",
                   "zh-Hant/essentials/weekly-letter-inner-portrait",
+                  "zh-Hant/essentials/daily-practice-and-rituals",
                   "zh-Hant/essentials/memory-orb",
                   "zh-Hant/essentials/wisdom-collection"
                 ]
@@ -172,9 +180,11 @@
                   "zh-Hant/advanced/your-inner-weather",
                   "zh-Hant/advanced/aligned-actions",
                   "zh-Hant/advanced/goals",
-                  "zh-Hant/advanced/guidance-modes",
+                  "zh-Hant/advanced/tune-your-mentors",
                   "zh-Hant/advanced/reminders",
-                  "zh-Hant/advanced/yearly-reflection"
+                  "zh-Hant/advanced/yearly-reflection",
+                  "zh-Hant/advanced/your-inner-world",
+                  "zh-Hant/earn-free-months"
                 ]
               },
               {
@@ -183,8 +193,7 @@
                 "pages": [
                   "zh-Hant/developers/lifenote-cli"
                 ]
-              },
-              "file"
+              }
             ]
           }
         ]
