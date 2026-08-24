@@ -14,7 +14,7 @@ Your journal holds things you may never have said out loud. Here is exactly how 
     Every entry is encrypted with AES-GCM (256-bit) before it is written to our servers. In storage it is ciphertext, not readable text.
   </Card>
   <Card title="Three locks, not one" icon="key">
-    Your entry is locked, the key to it is locked, and the key to *that* lock lives in separate hardware we cannot read.
+    Your entry is locked, the key to it is locked and held in hardware we cannot read, and you can lock the app itself.
   </Card>
   <Card title="Never trained on" icon="robot">
     Your writing is never sold, never read by our staff, and never used to train an AI model.
@@ -26,17 +26,17 @@ Your journal holds things you may never have said out loud. Here is exactly how 
 
 ## Three locks, not one
 
-Most apps encrypt your data and stop there — which only moves the problem, because the key has to live somewhere. Life Note puts a lock on the entry, a lock on the key, and keeps the key to *that* lock in a different building.
+Most apps encrypt your data and stop there — which only moves the problem, because the key has to live somewhere. Life Note puts a lock on the entry, a lock on the key that opens it, and a lock on the app itself.
 
 <Steps>
   <Step title="Your entry is locked">
-    When you write an entry, it is encrypted with AES-GCM and a 256-bit key before it is written to our servers — the same standard used by banks and governments. Every entry gets its own fresh initialization vector, and the cipher detects tampering. What sits in our database is ciphertext.
+    When you write an entry, it is encrypted with AES-GCM and a 256-bit key before it is written to our servers — the same standard used by banks and governments. Every entry gets its own fresh initialization vector, and the cipher detects tampering. What sits in our database is ciphertext, and your key belongs to your account alone: one account's key cannot open another account's entries.
   </Step>
-  <Step title="The key to your entry is locked too">
-    Your key belongs to your account alone — one account's key cannot open another account's entries. And that key is itself never stored in readable form. It sits in our database only as ciphertext, wrapped inside its own encryption.
+  <Step title="The key is locked too — and kept somewhere we cannot reach">
+    Your key is never stored in readable form. It sits in our database only as ciphertext, wrapped inside its own encryption. The key that unwraps it is held in AWS Key Management Service, inside hardware security modules — not in our database, not in our code, not on our servers. It **cannot be extracted from that hardware, by an attacker or by us.** We can ask the hardware to perform an unwrap; we can never read the key itself. Every request is recorded in an independent audit trail.
   </Step>
-  <Step title="The key that opens the key lives somewhere else entirely">
-    The key that unwraps your key is held in AWS Key Management Service, inside hardware security modules. It is not in our database, not in our code, and not on our servers. It **cannot be extracted from that hardware — not by an attacker, and not by us.** We can ask the hardware to perform an unwrap; we can never read the key itself. Every single request is recorded in an independent audit trail.
+  <Step title="The app itself can be locked">
+    The first two locks are ours to maintain, and they run whether you think about them or not. This one is yours. Turn on a PIN, your fingerprint, or your face, and Life Note will not open at all without it — protecting your journal from whoever picks up your phone, not just from anyone attacking our servers. [Turn it on →](#lock-the-app-itself)
   </Step>
 </Steps>
 
