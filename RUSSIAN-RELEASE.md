@@ -2,7 +2,7 @@
 
 This branch adds all 20 published English guide pages plus a Russian version of the shared free/subscription FAQ: 21 Russian navigation destinations. The unlisted starter snippet is excluded. English and Traditional Chinese navigation remain in place.
 
-The source revision is `e067fca`. Russian prose was drafted locally with an offline EN→RU model; page titles, navigation, product controls, privacy/security disclosures, import/deletion instructions and other selected passages were manually reviewed. No journal data or credentials were involved. Native-speaker review is still required before publication. Shared image and video references remain unchanged; screenshots within those assets currently show the source UI language.
+The source revision is `e067fca`. Russian prose was drafted locally with an offline EN→RU model; page titles, navigation, product controls, privacy/security disclosures, import/deletion instructions and other selected passages were manually reviewed. No journal data or credentials were involved. Shared image and video references remain unchanged; screenshots within those assets currently show the source UI language.
 
 Two outdated source facts were corrected in English and Russian under the CEO's existing approved behavior, with no product change:
 
@@ -16,9 +16,13 @@ Two outdated source facts were corrected in English and Russian under the CEO's 
 - `npx mint dev --port 3017` compiled the site locally. The Russian welcome page rendered with Russian locale selector, search, sidebar and article. Language-specific navbar labels are Russian; the website footer targets `/ru/`.
 - The self-contained audit passes on this branch and fails without the Russian page/navigation additions.
 
+The follow-up copy pass corrected malformed Russian wording and instructions across 16 pages. Keyboard controls remain literal key names; the regression guard fails the earlier draft that translated Shift. The Russian privacy page now describes server-side decryption for reading, export, AI replies and explicitly authorized external agents. It does not promise universal KMS deployment, company-inaccessible keys, harmless database leaks or control over external providers. Stale carousel/Inner Portrait instructions now identify the actual home sections. Immutable English source snapshots and SHA-256 records document these deliberate editorial differences; unlock thresholds and other numeric facts remain protected.
+
+Focused browser previews of Inner World controls and the decryption disclosure were captured and inspected; local previews were stopped. These are agent source/language checks, not a claim of an exhaustive human editorial audit.
+
 ## Publication order
 
-1. Complete native-speaker/content review of the guide and separately prepared Ghost drafts. Review existing source claims as well as translation; a structural audit does not authorize publication.
+1. Complete normal PR review and obtain publication authorization for the guide and separately prepared Ghost drafts. Source-aware language and owned privacy/navigation corrections are completed and recorded in `docs/russian-guide-editorial-review.json`; structural checks do not themselves authorize publication.
 2. Publish and verify the approved Russian Ghost post corpus and `/tag/ru/` index first. This branch prepares the three linked articles at `benefits-of-journaling-ru`, `the-vomit-system-a-proven-journaling-framework-by-campbell-walker-ru` and `your-thoughts-are-safe-how-life-note-protects-your-privacy-with-aes-gcm-encryption-ru`. Each must resolve to its reviewed Russian body before the guide merges.
 3. The CEO merges the approved guide PR. The documented Mintlify integration deploys default-branch changes automatically. This agent must not merge or push to `main`.
 4. Verify all 21 Russian navigation URLs on `https://guide.mylifenote.ai`, the Russian language switcher/pagination, and the localized blog links. A GitHub merge alone does not prove publication.
