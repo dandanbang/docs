@@ -63,4 +63,9 @@ for source_path in pages(locales['en']):
 assert '#lock-the-app-itself' not in (ROOT/'ru/start-here/privacy-and-security.mdx').read_text()
 assert 'должны иметь возможность расшифровать твою запись' in (ROOT/'ru/start-here/privacy-and-security.mdx').read_text()
 assert 'Он **не может** писать' in (ROOT/'ru/developers/lifenote-cli.mdx').read_text()
+inner_world = (ROOT/'ru/advanced/your-inner-world.mdx').read_text()
+# Key names are controls, not translatable prose: translating Shift made the
+# running instruction impossible to follow even though links/numbers matched.
+for key in ['W A S D', 'Shift', 'Space', 'E', 'F', '[', ']', '?']:
+    assert f'**{key}**' in inner_world, ('Russian Inner World keyboard control', key)
 print('21 Russian pages: navigation, frontmatter, code, media, links, numbers and no English prose fallback passed')
