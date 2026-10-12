@@ -18,10 +18,10 @@ Two outdated source facts were corrected in English and Russian under the CEO's 
 
 ## Publication order
 
-1. Complete native-speaker/content review and approve this guide PR. Review existing source claims as well as translation; publication is not authorized by a passing structural audit.
-2. The CEO merges the approved guide PR. The repository's documented Mintlify integration deploys default-branch changes automatically. This agent must not merge or push to `main`.
-3. Verify every URL named by Russian navigation on `https://guide.mylifenote.ai`, plus the Russian language switcher and pagination. A GitHub merge alone does not prove publication.
-4. Publish and verify the Russian Ghost post corpus and Russian index/tag destinations from the separately prepared drafts. Blog links in this guide include the privacy/encryption article, `benefits-of-journaling` and the Campbell Walker VOMIT article; they remain at existing live originals in this draft until those Russian destinations are published and an approved link update is made.
-5. Only then approve/merge the main application's Russian rollout, which includes explicit `/ru/start-here/welcome-to-life-note` links for landing and signed-in web. Ship the mobile/store localization via its separately approved build/listing path.
+1. Complete native-speaker/content review of the guide and separately prepared Ghost drafts. Review existing source claims as well as translation; a structural audit does not authorize publication.
+2. Publish and verify the approved Russian Ghost post corpus and `/tag/ru/` index first. This branch prepares the three linked articles at `benefits-of-journaling-ru`, `the-vomit-system-a-proven-journaling-framework-by-campbell-walker-ru` and `your-thoughts-are-safe-how-life-note-protects-your-privacy-with-aes-gcm-encryption-ru`. Each must resolve to its reviewed Russian body before the guide merges.
+3. The CEO merges the approved guide PR. The documented Mintlify integration deploys default-branch changes automatically. This agent must not merge or push to `main`.
+4. Verify all 21 Russian navigation URLs on `https://guide.mylifenote.ai`, the Russian language switcher/pagination, and the localized blog links. A GitHub merge alone does not prove publication.
+5. Only then approve/merge the main application's Russian rollout, including `/ru/start-here/welcome-to-life-note` links for landing and signed-in web. Ship mobile/store localization through its separately approved build/listing path.
 
 Until these gates pass, the guide and application PRs stay drafts/off production. No external content or store metadata was published during preparation.

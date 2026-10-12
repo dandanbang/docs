@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 
+BLOG_LOCALIZATIONS = {'https://blog.mylifenote.ai/benefits-of-journaling/': 'https://blog.mylifenote.ai/benefits-of-journaling-ru/', 'https://blog.mylifenote.ai/the-vomit-system-a-proven-journaling-framework-by-campbell-walker/': 'https://blog.mylifenote.ai/the-vomit-system-a-proven-journaling-framework-by-campbell-walker-ru/', 'https://blog.mylifenote.ai/your-thoughts-are-safe-how-life-note-protects-your-privacy-with-aes-gcm-encryption/': 'https://blog.mylifenote.ai/your-thoughts-are-safe-how-life-note-protects-your-privacy-with-aes-gcm-encryption-ru/'}
 ROOT = Path(__file__).resolve().parents[1]
 config = json.loads((ROOT / 'docs.json').read_text())
 locales = {entry['language']: entry for entry in config['navigation']['languages']}
@@ -30,6 +31,7 @@ def numbers(text):
 
 expected = [localized(path) for path in pages(locales['en'])]
 actual = pages(locales['ru'])
+assert locales['ru']['navbar']['links'][1]['href'] == 'https://blog.mylifenote.ai/tag/ru/'
 assert len(expected) == len(actual) == 21
 assert set(expected) == set(actual), 'Russian navigation must cover every English page'
 for source_path in pages(locales['en']):
@@ -46,7 +48,7 @@ for source_path in pages(locales['en']):
         pattern = r'\b' + attribute + r'=("[^"]*"|\{[^\n]*\})'
         assert re.findall(pattern, source) == re.findall(pattern, translated), (target, attribute)
     refs = lambda text: re.findall(r'(?:\]\(|href=")([^\s"\)]+)', text)
-    expected_refs = [url.replace('/en/', '/ru/').replace('/faq', '/ru/faq') if url.startswith('/') else url for url in refs(source)]
+    expected_refs = [url.replace('/en/', '/ru/').replace('/faq', '/ru/faq') if url.startswith('/') else BLOG_LOCALIZATIONS.get(url, url) for url in refs(source)]
     expected_refs = ['#заблокировать-само-приложение' if url == '#lock-the-app-itself' else url for url in expected_refs]
     assert collections.Counter(expected_refs) == collections.Counter(refs(translated)), (target, 'links')
     assert numbers(source) == numbers(translated), (target, 'numeric claims')
