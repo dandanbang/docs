@@ -1,0 +1,43 @@
+{
+  "review_type": "source-aware automated editorial corrections; not human native approval",
+  "date": "2026-10-12",
+  "guide_source_commit": "d989b8b0911b724567e86f978613a91faea24be1",
+  "application_source_commit": "e353d46de2aebd254d20cf24d4dc3a59e95238e3",
+  "evidence": [
+    "https://www.mylifenote.ai/privacy-policy (effective September 30, 2026), sections 2.5, 3 and 11",
+    "spiritualhuman/server/utils/encryption.py: get_user_decryption_key_strict supports legacy_aes_gcm_v1 and aws_kms_v2",
+    "spiritualhuman/server/agent/read_routes.py and mcp_routes.py: authorized server-side decryption",
+    "spiritualhuman/server/templates/index.html: innerWeather, innerWisdom and beautifulMemories section markers"
+  ],
+  "pages": {
+    "en/start-here/privacy-and-security.mdx": {
+      "source_snapshot": "docs/russian-guide-source/privacy-and-security.mdx",
+      "sha256": "4924057b66af9746e44dc17137f53403c1597413d61b121a305490c4eaaa2b3e",
+      "editorial_delta": "Privacy: remove universal KMS/HSM deployment and inaccessible-company-key guarantees; disclose service-side decryption and external-provider processing. Navigation: name the actual home section, replacing stale carousel/Inner Portrait references.",
+      "removed_numeric_labels": []
+    },
+    "en/advanced/inner-wisdom.mdx": {
+      "source_snapshot": "docs/russian-guide-source/inner-wisdom.mdx",
+      "sha256": "8eb49a03da7b8f7d0acead514f1b4d8b9cb3ed92a011f2a0739855114f1cd8eb",
+      "editorial_delta": "Privacy: remove universal KMS/HSM deployment and inaccessible-company-key guarantees; disclose service-side decryption and external-provider processing. Navigation: name the actual home section, replacing stale carousel/Inner Portrait references.",
+      "removed_numeric_labels": [
+        "6"
+      ]
+    },
+    "en/advanced/your-inner-weather.mdx": {
+      "source_snapshot": "docs/russian-guide-source/your-inner-weather.mdx",
+      "sha256": "c036f2af3c6f1c35c983e2a9dc4354006ca972735122d72e869ddbef3ac3a7cc",
+      "editorial_delta": "Privacy: remove universal KMS/HSM deployment and inaccessible-company-key guarantees; disclose service-side decryption and external-provider processing. Navigation: name the actual home section, replacing stale carousel/Inner Portrait references.",
+      "removed_numeric_labels": [
+        "3",
+        "4"
+      ]
+    },
+    "en/essentials/memory-orb.mdx": {
+      "source_snapshot": "docs/russian-guide-source/memory-orb.mdx",
+      "sha256": "75d05a15f9bc730b7477c370b4e97e86b1d145e7205eb6c6db1a0adb1f07d065",
+      "editorial_delta": "Privacy: remove universal KMS/HSM deployment and inaccessible-company-key guarantees; disclose service-side decryption and external-provider processing. Navigation: name the actual home section, replacing stale carousel/Inner Portrait references.",
+      "removed_numeric_labels": []
+    }
+  }
+}

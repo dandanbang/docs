@@ -195,6 +195,84 @@
             ]
           }
         ]
+      },
+      {
+        "language": "ru",
+        "tabs": [
+          {
+            "tab": "Руководство",
+            "pages": [
+              {
+                "group": "Начни здесь",
+                "icon": "arrow-down-to-line",
+                "expanded": true,
+                "pages": [
+                  "ru/start-here/welcome-to-life-note",
+                  "ru/faq",
+                  "ru/start-here/bring-your-history-in",
+                  "ru/start-here/privacy-and-security"
+                ]
+              },
+              {
+                "group": "Основы Life Note",
+                "icon": "book-open",
+                "pages": [
+                  "ru/essentials/journaling-with-great-minds",
+                  "ru/essentials/deep-chat",
+                  "ru/essentials/meet-your-mentors",
+                  "ru/essentials/weekly-letter-inner-portrait",
+                  "ru/essentials/daily-practice-and-rituals",
+                  "ru/essentials/memory-orb",
+                  "ru/essentials/wisdom-collection"
+                ]
+              },
+              {
+                "group": "Больше возможностей",
+                "icon": "rocket",
+                "pages": [
+                  "ru/advanced/inner-wisdom",
+                  "ru/advanced/your-inner-weather",
+                  "ru/advanced/aligned-actions",
+                  "ru/advanced/goals",
+                  "ru/advanced/tune-your-mentors",
+                  "ru/advanced/reminders",
+                  "ru/advanced/yearly-reflection",
+                  "ru/advanced/your-inner-world",
+                  "ru/earn-free-months"
+                ]
+              },
+              {
+                "group": "Подключение к ИИ",
+                "icon": "terminal",
+                "pages": [
+                  "ru/developers/lifenote-cli"
+                ]
+              }
+            ]
+          }
+        ],
+        "navbar": {
+          "links": [
+            {
+              "label": "Поддержка",
+              "href": "mailto:daniel@mylifenote.ai"
+            },
+            {
+              "label": "Блог",
+              "href": "https://blog.mylifenote.ai/tag/ru/"
+            }
+          ]
+        },
+        "footer": {
+          "socials": {
+            "x": "https://x.com/lifenote_ai",
+            "linkedin": "https://www.linkedin.com/company/mylifenote",
+            "instagram": "https://www.instagram.com/lifenote.journal",
+            "discord": "https://discord.gg/JQ7HqyMQ9b",
+            "threads": "https://www.threads.net/@mylifenote.ai",
+            "website": "https://www.mylifenote.ai/ru/"
+          }
+        }
       }
     ]
   },
