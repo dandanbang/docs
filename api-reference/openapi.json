@@ -1,216 +1,950 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
+    "title": "Life Note Agent API",
+    "version": "1.0.0",
+    "description": "Read-only HTTP API for connecting AI agents and automation tools (such as Zapier) to a user's Life Note account. Authenticate with OAuth 2.0 authorization code + PKCE (S256) and send the access token as `Authorization: Bearer <access_token>`. Journal content is decrypted server-side and returned only to the authorizing user's own token."
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://mylifenote.ai/api/agent/v1",
+      "description": "Production"
     }
   ],
-  "security": [
+  "tags": [
     {
-      "bearerAuth": []
+      "name": "OAuth",
+      "description": "Authorization and token exchange"
+    },
+    {
+      "name": "Account"
+    },
+    {
+      "name": "Journal"
     }
   ],
   "paths": {
-    "/plants": {
+    "/oauth/authorize": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "tags": [
+          "OAuth"
+        ],
+        "operationId": "authorize",
+        "summary": "Authorize (browser step)",
+        "security": [],
+        "description": "Opens in the user's browser. Parameters are validated first, then: if the user has no Life Note web session they are redirected (302) to the login page and return here after sign-in; otherwise an HTML consent page is shown. When the user clicks Allow, the browser is redirected (302) to `redirect_uri?code=<code>&state=<state>`; on Not now, to `redirect_uri?error=access_denied&state=<state>`. The consent decision itself is a same-origin form POST to this path (fields `transaction_id`, `csrf_token`, `decision`) that is not meant to be called by integrations.\n\nThe `client_id` must belong to a client registered via `POST /oauth/register` (RFC 7591 dynamic registration, public clients, ids start with `agc_`) and `redirect_uri` must exactly match one registered URI (HTTPS, or http on localhost/127.0.0.1). The authorization code is valid for 5 minutes and single use.",
         "parameters": [
           {
-            "name": "limit",
+            "name": "response_type",
             "in": "query",
-            "description": "The maximum number of results to return",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "enum": [
+                "code"
+              ]
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "query",
+            "required": true,
+            "description": "Registered client id (starts with `agc_`, max 120 chars).",
+            "schema": {
+              "type": "string"
+            },
+            "example": "agc_EXAMPLEclientIdOnly"
+          },
+          {
+            "name": "redirect_uri",
+            "in": "query",
+            "required": true,
+            "description": "Must exactly match a redirect URI registered for the client.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "example": "https://client.example.com/oauth/callback"
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "required": true,
+            "description": "Space-separated list. Supported: `journal:read`, `chat:read`. At least one is required; unknown scopes are rejected.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "journal:read"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "description": "Opaque value echoed back unmodified on the redirect. Strongly recommended for CSRF protection.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code_challenge",
+            "in": "query",
+            "required": true,
+            "description": "PKCE challenge: BASE64URL(SHA256(code_verifier)) without padding.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM"
+          },
+          {
+            "name": "code_challenge_method",
+            "in": "query",
+            "required": false,
+            "description": "Only `S256` is accepted. Defaults to `S256` when omitted.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "S256"
+              ],
+              "default": "S256"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "HTML consent page (user is signed in).",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "302": {
+            "description": "Redirect to the login page (no web session), or, after the consent POST, to `redirect_uri` with `code` and `state` (or `error=access_denied`).",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request. JSON body. `error` is one of `unsupported_response_type`, `invalid_request`, `invalid_client`, `invalid_scope`. The user is not redirected back to the client in these cases.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "invalid_request",
+                  "detail": "PKCE required (code_challenge + S256)"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oauth/token": {
+      "post": {
+        "tags": [
+          "OAuth"
+        ],
+        "operationId": "token",
+        "summary": "Exchange a code or refresh a token",
+        "security": [],
+        "description": "Public-client token endpoint (no client secret; `token_endpoint_auth_methods_supported` is `none`). Accepts `application/x-www-form-urlencoded` (RFC 6749) or `application/json`. Access tokens (`lna_...`) live 1 hour; refresh tokens (`lnr_...`) live 30 days. Refresh tokens rotate: every refresh returns a new refresh token and the previous one stops working. Presenting an already-rotated refresh token revokes the whole token family, so always store the newest refresh token. The `client_id` is not required or checked at this endpoint. This endpoint is not covered by the per-token rate limits.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthCodeGrant"
+                  },
+                  {
+                    "$ref": "#/components/schemas/RefreshGrant"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthCodeGrant"
+                  },
+                  {
+                    "$ref": "#/components/schemas/RefreshGrant"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token pair.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                },
+                "example": {
+                  "access_token": "lna_EXAMPLEaccessTokenNotReal0000000000000000",
+                  "refresh_token": "lnr_EXAMPLErefreshTokenNotReal000000000000000",
+                  "token_type": "Bearer",
+                  "expires_in": 3600,
+                  "refresh_expires_in": 2592000,
+                  "scope": "journal:read"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "`unsupported_grant_type` (missing or unknown `grant_type`), `invalid_request` (missing `code`, `redirect_uri`, `code_verifier` or `refresh_token`), or `invalid_grant` (code unknown, expired, already used, redirect_uri mismatch, PKCE failure, or refresh token unknown, expired, revoked or reused). `detail` is present only for redirect_uri mismatch and PKCE failure. A code is burned by its first exchange attempt even if that attempt fails.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "grant": {
+                    "value": {
+                      "error": "invalid_grant"
+                    }
+                  },
+                  "pkce": {
+                    "value": {
+                      "error": "invalid_grant",
+                      "detail": "pkce verification failed"
+                    }
+                  },
+                  "type": {
+                    "value": {
+                      "error": "unsupported_grant_type"
+                    }
                   }
                 }
               }
             }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
           }
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/whoami": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "whoami",
+        "summary": "Get the connected account",
+        "security": [
+          {
+            "oauth2": []
+          }
+        ],
+        "description": "Returns the identity behind the access token. Any valid token works; no particular scope is required. Suitable as a connection test.",
+        "responses": {
+          "200": {
+            "description": "Token identity.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhoAmI"
+                },
+                "example": {
+                  "user_id": 4821,
+                  "email": "jane.doe@example.com",
+                  "name": "Jane Doe",
+                  "token_name": "Example Client",
+                  "client_kind": "browser",
+                  "scopes": [
+                    "journal:read"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
+        }
+      }
+    },
+    "/entries": {
+      "get": {
+        "tags": [
+          "Journal"
+        ],
+        "operationId": "listEntries",
+        "summary": "List journal entries",
+        "security": [
+          {
+            "oauth2": [
+              "journal:read"
+            ]
+          }
+        ],
+        "description": "Lists the user's non-deleted journal entries, newest first (ordered by entry date, then entry time, both descending). Pagination is offset-based; there is no cursor, total count or `has_more` flag. To poll for new entries, request `limit=100` (or fewer) with a recent `since` and de-duplicate on `id`. Entry HTML is stripped to plain text.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "description": "Lower date bound, inclusive, compared against the entry date at day granularity. Accepts a relative form `<N>d` (for example `7d`, `30d`, computed from the current UTC date), a date `YYYY-MM-DD`, or an ISO 8601 datetime (the time part is discarded). An unparseable value is silently ignored (no error, no filter).",
+            "schema": {
+              "type": "string"
+            },
+            "example": "7d"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Page size. Default 20. Values outside 1-100 are clamped, not rejected.",
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "default": 20,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Number of entries to skip. Default 0. Negative values are clamped to 0.",
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "A page of entries.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/EntryList"
+                },
+                "example": {
+                  "entries": [
+                    {
+                      "id": 10452,
+                      "date": "2026-10-21",
+                      "time": "08:14:09",
+                      "emoji": "🌿",
+                      "content": "Slow morning. Walked before work and noticed how much lighter I felt.",
+                      "preview": "Slow morning. Walked before work and noticed how much lighter I felt."
+                    }
+                  ],
+                  "count": 1,
+                  "limit": 20,
+                  "offset": 0,
+                  "since": "2026-10-14"
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/InsufficientScope"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
           }
         }
       }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
+    },
+    "/search": {
+      "get": {
+        "tags": [
+          "Journal"
+        ],
+        "operationId": "search",
+        "summary": "Search journal and chats",
+        "security": [
+          {
+            "oauth2": [
+              "journal:read"
+            ]
+          },
+          {
+            "oauth2": [
+              "chat:read"
+            ]
+          }
+        ],
+        "description": "Case-insensitive substring search, performed server-side after decryption. Requires `journal:read` OR `chat:read`; results are limited to the sources the token's scopes allow: `journal:read` searches journal entries and mentor responses, `chat:read` searches mentor chat messages. Each source scans at most its 1,000 most recent items (after the `since` filter). Results from all sources are merged and sorted by time descending. There is no pagination.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Search text, trimmed, at least 2 characters.",
+            "schema": {
+              "type": "string",
+              "minLength": 2
+            },
+            "example": "walk"
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "description": "Lower date bound, inclusive, compared against the entry date at day granularity. Accepts a relative form `<N>d` (for example `7d`, `30d`, computed from the current UTC date), a date `YYYY-MM-DD`, or an ISO 8601 datetime (the time part is discarded). An unparseable value is silently ignored (no error, no filter).",
+            "schema": {
+              "type": "string"
+            },
+            "example": "7d"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum results. Default 20. Values outside 1-50 are clamped.",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "minimum": 1,
+              "maximum": 50
             }
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
+            "description": "Matches.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                },
+                "example": {
+                  "query": "walk",
+                  "since": null,
+                  "results": [
+                    {
+                      "source": "journal_entry",
+                      "id": 10452,
+                      "date": "2026-10-21",
+                      "time": "08:14:09",
+                      "snippet": "Slow morning. Walked before work and noticed how much lighter I felt."
+                    },
+                    {
+                      "source": "mentor_response",
+                      "id": 88213,
+                      "date": "2026-10-21",
+                      "time": "08:14:40",
+                      "mentor": "Seneca",
+                      "journal_entry_id": 10452,
+                      "snippet": "…a walk is a fine way to return to yourself…"
+                    }
+                  ],
+                  "count": 2,
+                  "scanned": 312,
+                  "truncated": false
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/InsufficientScope"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
           }
         }
       }
     }
   },
   "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth 2.0 authorization code with mandatory PKCE (S256). Public clients; no client secret. Send the access token as `Authorization: Bearer <access_token>`.",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://mylifenote.ai/api/agent/v1/oauth/authorize",
+            "tokenUrl": "https://mylifenote.ai/api/agent/v1/oauth/token",
+            "refreshUrl": "https://mylifenote.ai/api/agent/v1/oauth/token",
+            "scopes": {
+              "journal:read": "Read journal entries and mentor responses, and search them",
+              "chat:read": "Read mentor chat conversations and search chat messages"
             }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
           }
         }
       }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+    "responses": {
+      "Unauthorized": {
+        "description": "Missing, malformed, expired or revoked access token. The response carries a `WWW-Authenticate: Bearer realm=\"lifenote\", resource_metadata=\"https://mylifenote.ai/.well-known/oauth-protected-resource\"` header (plus `error=\"invalid_token\"` when a token was sent but rejected).",
+        "headers": {
+          "WWW-Authenticate": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bearer challenge with a pointer to the protected-resource metadata."
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "missing": {
+                "summary": "No Authorization header",
+                "value": {
+                  "error": "missing_token"
+                }
+              },
+              "invalid": {
+                "summary": "Bad, expired or revoked token",
+                "value": {
+                  "error": "invalid_token"
+                }
+              }
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "A rate limit was exceeded. No `Retry-After` header is sent. `reason` is one of: `per-token per-minute limit exceeded`, `per-token daily limit exceeded`, `per-ip per-minute limit exceeded`, `per-user daily limit exceeded`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "error",
+                "reason"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "enum": [
+                    "rate_limited"
+                  ]
+                },
+                "reason": {
+                  "type": "string"
+                }
+              }
+            },
+            "example": {
+              "error": "rate_limited",
+              "reason": "per-token per-minute limit exceeded"
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Invalid parameter.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": "invalid_request",
+              "detail": "limit/offset must be int"
+            }
+          }
+        }
+      },
+      "InsufficientScope": {
+        "description": "The token is valid but lacks the required scope.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "error",
+                "granted"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "enum": [
+                    "insufficient_scope"
+                  ]
+                },
+                "required": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Scopes that were all required. Not present on `/search`."
+                },
+                "required_any_of": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "`/search` only: at least one of these is required."
+                },
+                "granted": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "example": {
+              "error": "insufficient_scope",
+              "required": [
+                "journal:read"
+              ],
+              "granted": [
+                "chat:read"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Machine-readable code."
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable detail; not always present."
+          }
+        }
+      },
+      "AuthCodeGrant": {
+        "type": "object",
+        "title": "Authorization code grant",
+        "required": [
+          "grant_type",
+          "code",
+          "redirect_uri",
+          "code_verifier"
+        ],
+        "properties": {
+          "grant_type": {
+            "type": "string",
+            "enum": [
+              "authorization_code"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "description": "Code from the redirect. Valid 5 minutes, single use.",
+            "example": "lnoc_EXAMPLEcodeNotReal"
+          },
+          "redirect_uri": {
+            "type": "string",
+            "format": "uri",
+            "description": "Must exactly equal the redirect_uri used in the authorize step."
+          },
+          "code_verifier": {
+            "type": "string",
+            "description": "The PKCE verifier whose S256 hash was sent as code_challenge.",
+            "example": "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+          }
+        }
+      },
+      "RefreshGrant": {
+        "type": "object",
+        "title": "Refresh grant",
+        "required": [
+          "grant_type",
+          "refresh_token"
+        ],
+        "properties": {
+          "grant_type": {
+            "type": "string",
+            "enum": [
+              "refresh_token"
+            ]
+          },
+          "refresh_token": {
+            "type": "string",
+            "example": "lnr_EXAMPLErefreshTokenNotReal"
+          }
+        }
+      },
+      "TokenResponse": {
+        "type": "object",
+        "required": [
+          "access_token",
+          "refresh_token",
+          "token_type",
+          "expires_in",
+          "refresh_expires_in",
+          "scope"
+        ],
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "Prefix `lna_`."
+          },
+          "refresh_token": {
+            "type": "string",
+            "description": "Prefix `lnr_`. Replaces the previous refresh token."
+          },
+          "token_type": {
+            "type": "string",
+            "enum": [
+              "Bearer"
+            ]
+          },
+          "expires_in": {
+            "type": "integer",
+            "description": "Access token lifetime in seconds (3600).",
+            "example": 3600
+          },
+          "refresh_expires_in": {
+            "type": "integer",
+            "description": "Refresh token lifetime in seconds (2592000 = 30 days).",
+            "example": 2592000
+          },
+          "scope": {
+            "type": "string",
+            "description": "Space-separated granted scopes.",
+            "example": "journal:read"
+          }
+        }
+      },
+      "WhoAmI": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "email"
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "token_name": {
+            "type": "string",
+            "description": "Name of the connected client as registered."
+          },
+          "client_kind": {
+            "type": "string",
+            "enum": [
+              "cli",
+              "mcp_stdio",
+              "mcp_remote",
+              "browser"
+            ],
+            "description": "`browser` for OAuth authorization-code tokens."
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Sorted."
+          }
+        }
+      },
+      "Entry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Stable entry id. Use for de-duplication."
+          },
+          "date": {
+            "type": "string",
+            "description": "Entry date, YYYY-MM-DD.",
+            "example": "2026-10-21"
+          },
+          "time": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Entry time as stored, typically HH:MM:SS.",
+            "example": "08:14:09"
+          },
+          "emoji": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "content": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Full entry as plain text (HTML stripped). `null` if empty or it could not be decrypted."
+          },
+          "preview": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Plain text truncated to 160 characters with a trailing `…` when longer; `null` when content is null."
+          }
+        }
+      },
+      "EntryList": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entry"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "description": "Entries in this page."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Effective (clamped) limit."
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Effective offset."
+          },
+          "since": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Normalized YYYY-MM-DD filter applied, or null."
+          }
+        }
+      },
+      "SearchResult": {
+        "type": "object",
+        "required": [
+          "source",
+          "id",
+          "snippet"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "enum": [
+              "journal_entry",
+              "mentor_response",
+              "chat_message"
+            ]
+          },
+          "id": {
+            "type": "integer"
+          },
+          "date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "snippet": {
+            "type": "string",
+            "description": "About 80 characters either side of the first match, with `…` where cut."
+          },
+          "mentor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "mentor_response and chat_message only."
+          },
+          "journal_entry_id": {
+            "type": "integer",
+            "description": "mentor_response only."
+          },
+          "sender": {
+            "type": "string",
+            "description": "chat_message only."
+          },
+          "conversation_id": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "chat_message only."
+          },
+          "conversation_title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "chat_message only."
+          }
+        }
+      },
+      "SearchResponse": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "since": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchResult"
+            }
+          },
+          "count": {
+            "type": "integer"
+          },
+          "scanned": {
+            "type": "integer",
+            "description": "Items decrypted and scanned across all sources."
+          },
+          "truncated": {
+            "type": "boolean",
+            "description": "True if more matches existed than `limit`. Does not reflect the 1,000-item scan cap per source."
+          }
+        }
       }
     }
   }

@@ -1,0 +1,99 @@
+---
+title: "Agent API"
+description: "Read-only HTTP API for connecting AI agents and automation tools to your Life Note journal."
+icon: "code"
+---
+
+The Life Note Agent API lets an app you authorize (an AI assistant, or an automation tool such as Zapier) read your journal on your behalf.
+
+<Note>
+The API is **read-only**. There are no endpoints that create, change or delete anything. Journal content is private to the user who authorizes the connection: a token only ever returns that user's own data, and the user can revoke it at any time.
+</Note>
+
+## Base URL
+
+```
+https://mylifenote.ai/api/agent/v1
+```
+
+All endpoints in this reference are relative to this URL. Requests must use HTTPS.
+
+## Authentication
+
+The API uses **OAuth 2.0 authorization code flow with PKCE (S256)**. Clients are public (no client secret). PKCE is required; `plain` is not accepted.
+
+<Steps>
+  <Step title="Register a client (once)">
+    `POST /oauth/register` with `{"client_name": "...", "redirect_uris": ["https://..."]}` returns a `client_id` starting with `agc_`. Redirect URIs must be HTTPS (or `http://localhost`). The `redirect_uri` you use later must exactly match a registered one.
+  </Step>
+  <Step title="Send the user to authorize">
+    Open `GET /oauth/authorize` in the user's browser with `response_type=code`, `client_id`, `redirect_uri`, `scope`, `state`, `code_challenge` and `code_challenge_method=S256`. The user signs in to Life Note if needed and clicks Allow. The browser is redirected to your `redirect_uri` with `code` and `state`. The code expires after 5 minutes and works once.
+  </Step>
+  <Step title="Exchange the code">
+    `POST /oauth/token` with `grant_type=authorization_code`, `code`, `redirect_uri` and `code_verifier`.
+  </Step>
+  <Step title="Refresh">
+    Access tokens last **1 hour**. Before or after expiry, `POST /oauth/token` with `grant_type=refresh_token` and `refresh_token`. Refresh tokens last **30 days** and **rotate**: each refresh returns a new refresh token and invalidates the old one. Reusing an old refresh token revokes the whole token family, so always save the newest one.
+  </Step>
+</Steps>
+
+Discovery documents (RFC 8414 and RFC 9728) are served at `https://mylifenote.ai/.well-known/oauth-authorization-server` and `https://mylifenote.ai/.well-known/oauth-protected-resource`.
+
+### Sending the token
+
+Send the access token in the `Authorization` header on every API request:
+
+```bash
+curl https://mylifenote.ai/api/agent/v1/whoami \
+  -H "Authorization: Bearer lna_EXAMPLEaccessTokenNotReal"
+```
+
+Tokens are not accepted in the query string or request body.
+
+## Scopes
+
+| Scope | Grants |
+|---|---|
+| `journal:read` | Journal entries and the mentor responses attached to them, including search over both. |
+| `chat:read` | Mentor chat conversations, including search over chat messages. |
+
+Request scopes as a space-separated list. A token is never silently upgraded: new scopes require the user to approve again.
+
+| Endpoint | Required scope |
+|---|---|
+| `GET /whoami` | any valid token |
+| `GET /entries` | `journal:read` |
+| `GET /search` | `journal:read` or `chat:read` (results are limited to what the scopes allow) |
+
+## Rate limits
+
+Limits apply to every authenticated request:
+
+| Limit | Value |
+|---|---|
+| Per token | 60 per minute, 2,000 per day |
+| Per IP address | 300 per minute |
+| Per user (all tokens combined) | 5,000 per day |
+
+Exceeding any limit returns `429`. No `Retry-After` header is sent; wait for the next minute (or day) window. Windows are fixed, not sliding. `/oauth/token` is not part of these limits, but unauthenticated client registration is limited per IP.
+
+## Errors
+
+Errors are JSON with a machine-readable `error` code and, usually, a `detail` string:
+
+```json
+{ "error": "invalid_request", "detail": "limit/offset must be int" }
+```
+
+| Status | `error` | Meaning |
+|---|---|---|
+| 400 | `invalid_request`, `invalid_grant`, `unsupported_grant_type`, `invalid_scope`, `invalid_client` | Bad parameters, or an invalid code or refresh token. |
+| 401 | `missing_token`, `invalid_token` | No bearer token, or it is unknown, expired or revoked. Includes a `WWW-Authenticate` header. Refresh the token and retry. |
+| 403 | `insufficient_scope` | Body lists `required` (or `required_any_of`) and `granted` scopes. |
+| 429 | `rate_limited` | Body includes a `reason` string. |
+
+The API does not return 503 itself; an unhandled server fault is a plain 500.
+
+## Pagination
+
+`GET /entries` pages with `limit` (max 100) and `offset`. There is no cursor. `GET /search` is not paginated (max 50 results).
