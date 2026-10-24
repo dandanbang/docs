@@ -98,7 +98,8 @@
                   "en/start-here/welcome-to-life-note",
                   "faq",
                   "en/start-here/bring-your-history-in",
-                  "en/start-here/privacy-and-security"
+                  "en/start-here/privacy-and-security",
+                  "en/start-here/your-settings"
                 ]
               },
               {
@@ -169,7 +170,8 @@
                   "zh-Hant/start-here/welcome-to-life-note",
                   "file",
                   "zh-Hant/start-here/bring-your-history-in",
-                  "zh-Hant/start-here/privacy-and-security"
+                  "zh-Hant/start-here/privacy-and-security",
+                  "zh-Hant/start-here/your-settings"
                 ]
               },
               {
@@ -225,7 +227,8 @@
                   "ru/start-here/welcome-to-life-note",
                   "ru/faq",
                   "ru/start-here/bring-your-history-in",
-                  "ru/start-here/privacy-and-security"
+                  "ru/start-here/privacy-and-security",
+                  "ru/start-here/your-settings"
                 ]
               },
               {

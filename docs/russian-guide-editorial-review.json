@@ -12,7 +12,7 @@
   "pages": {
     "en/start-here/privacy-and-security.mdx": {
       "source_snapshot": "docs/russian-guide-source/privacy-and-security.mdx",
-      "sha256": "4924057b66af9746e44dc17137f53403c1597413d61b121a305490c4eaaa2b3e",
+      "sha256": "a1f56084c16a44212e62a8e327a15268b85de0786771dfa5e08bdb5b1436cc3d",
       "editorial_delta": "Privacy: remove universal KMS/HSM deployment and inaccessible-company-key guarantees; disclose service-side decryption and external-provider processing. Navigation: name the actual home section, replacing stale carousel/Inner Portrait references.",
       "removed_numeric_labels": []
     },

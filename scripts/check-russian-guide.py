@@ -42,7 +42,7 @@ def numbers(text):
 expected = [localized(path) for path in pages(locales['en'])]
 actual = pages(locales['ru'])
 assert locales['ru']['navbar']['links'][1]['href'] == 'https://blog.mylifenote.ai/tag/ru/'
-assert len(expected) == len(actual) == 21
+assert len(expected) == len(actual) == 22
 assert set(expected) == set(actual), 'Russian navigation must cover every English page'
 for source_path in pages(locales['en']):
     source = (ROOT / (source_path + '.mdx')).read_text()
@@ -100,4 +100,4 @@ inner_world = (ROOT/'ru/advanced/your-inner-world.mdx').read_text()
 # running instruction impossible to follow even though links/numbers matched.
 for key in ['W A S D', 'Shift', 'Space', 'E', 'F', '[', ']', '?']:
     assert f'**{key}**' in inner_world, ('Russian Inner World keyboard control', key)
-print('21 Russian pages: navigation, frontmatter, code, media, links, numbers and no English prose fallback passed')
+print('22 Russian pages: navigation, frontmatter, code, media, links, numbers and no English prose fallback passed')
