@@ -4,7 +4,7 @@
   "name": "Life Note Guides",
   "metadata": {
     "og:site_name": "Life Note Guides",
-    "og:image": "https://guide.mylifenote.ai/images/hero.png"
+    "og:image": "https://guide.mylifenote.ai/images/brand/share-card-1200x630.jpg"
   },
   "redirects": [
     {
@@ -81,7 +81,7 @@
     "light": "#9C93D6",
     "dark": "#9C93D6"
   },
-  "favicon": "/images/favicon.png",
+  "favicon": "/images/brand/favicon.png",
   "navigation": {
     "languages": [
       {
@@ -292,8 +292,8 @@
     ]
   },
   "logo": {
-    "light": "/images/logo-light.png",
-    "dark": "/images/logo-dark.png",
+    "light": "/images/brand/logo-light.png",
+    "dark": "/images/brand/logo-dark.png",
     "href": "https://www.mylifenote.ai"
   },
   "navbar": {
